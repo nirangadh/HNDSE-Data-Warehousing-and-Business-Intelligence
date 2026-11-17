@@ -7,7 +7,8 @@ title DWBI DBeaver
 
 if not exist "%DBEAVER%\dbeaver.exe" (
     echo FAIL  DBeaver not found in tools\dbeaver.
-    echo       Copy the tools folder from the lab USB into the kit folder, then run 0_check_setup.
+    echo       Copy the tools folder from the lab USB, or follow the Build your own tools folder page.
+    echo       Then run 0_check_setup.
     goto :end
 )
 

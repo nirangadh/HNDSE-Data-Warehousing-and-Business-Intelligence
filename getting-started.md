@@ -7,15 +7,18 @@ This page sets up the four tools you use in every lab: PostgreSQL, DBeaver, Jupy
 You need two things in one folder:
 
 1. **The module files.** Download them from the module's repository page: choose **Code**, then **Download ZIP**. Download them again when a new day is posted.
-2. **The tools folder.** Copy the folder called `tools` from the lab USB drive. Your lecturer can also tell you where to download it.
+2. **The tools folder.** Copy the folder called `tools` from the lab USB drive. Or build it yourself, from the publishers' own downloads, with the [Build your own tools folder](build-your-tools.html) page.
 
 You also need a Windows 10 or Windows 11 computer and a web browser.
 
 ## Where to put it
 
-1. Right-click the downloaded ZIP file and choose **Extract All**.
-2. Choose a folder you can write to, such as one in Documents, or the USB drive itself. A folder name with spaces is fine.
-3. Copy the `tools` folder from the lab USB into the extracted folder, beside the `setup` folder.
+1. Right-click the downloaded ZIP file and choose **Properties**. Tick **Unblock**, then choose **OK**. Windows then does not stop each launcher to ask about it.
+2. Right-click the ZIP file again and choose **Extract All**. Open the extracted folders until you see the `setup` folder.
+3. Move the folder that holds `setup` to a folder you can write to, such as Documents, or to the USB drive itself. Rename it to a short name, such as `DWBI`.
+4. Copy the `tools` folder from the lab USB into it, beside the `setup` folder. If you build your own, follow the Build your own tools folder page instead.
+
+Keep the full path of the kit folder short: 77 characters or fewer, such as `C:\Users\you\Documents\DWBI`. A longer path breaks some files inside WinPython. A folder name with spaces is fine.
 
 When you are done, the folder looks like this. We call it the kit folder.
 
@@ -23,7 +26,7 @@ When you are done, the folder looks like this. We call it the kit folder.
 DWBI kit\
     setup\       the launchers you double-click
     days\        notes, lab sheets and data for each day
-    tools\       PostgreSQL, DBeaver, WinPython, Java and Metabase, from the USB
+    tools\       PostgreSQL, DBeaver, WinPython, Java and Metabase, from the lab USB or built by you
     data\        your databases: the first launcher creates it
     work\        your notebooks and files: Jupyter and psql start here
 ```
@@ -41,11 +44,11 @@ Double-click `setup\0_check_setup.bat`. Each line starts with PASS or FAIL. A FA
 | Line | What it means | If it says FAIL |
 |---|---|---|
 | Kit folder | The kit can store your databases here | Move the kit folder to Documents, or out of OneDrive |
-| PostgreSQL | The database server is in `tools` and new enough | Copy the `tools` folder from the lab USB again |
+| PostgreSQL | The database server is in `tools` and new enough | Copy the `tools` folder from the lab USB again, or repeat the step the Build your own tools folder page names |
 | Port 15432 | No other program uses PostgreSQL's port | Open `setup\env.bat` in Notepad and change `PGPORT` to another number, such as 15433 |
-| DBeaver, PostgreSQL driver | The SQL client and its driver file are in `tools` | Copy the `tools` folder from the lab USB again |
-| pandas, Jupyter | WinPython has what the notebooks need | Ask your lecturer for the current lab USB |
-| Java, Metabase | Metabase and the Java it needs are in `tools` | Copy the `tools` folder from the lab USB again |
+| DBeaver, PostgreSQL driver | The SQL client and its driver file are in `tools` | Copy the `tools` folder from the lab USB again, or repeat the step the Build your own tools folder page names |
+| pandas, Jupyter | WinPython has what the notebooks need | Use the WinPython file the Build your own tools folder page names, or the current lab USB |
+| Java, Metabase | Metabase and the Java it needs are in `tools`. A folder you built needs them once Day 6 is posted | Copy the `tools` folder from the lab USB again, or follow the Build your own tools folder page |
 | Day files | Each posted day finds its data files, unchanged | Copy the file again from the module files |
 
 Fix the FAIL lines from the top, then run the check again. When every line says PASS, you are ready.
@@ -96,10 +99,10 @@ The restore replaces everything in schema `warehouse`, including any table you m
 | DBeaver asks to download a driver and cannot | The computer has no internet | In DBeaver, open **Database**, then **Driver Manager**. Edit **PostgreSQL**, open **Libraries** and add the file in `tools\jdbc` |
 | The browser cannot open `http://localhost:3300` | Metabase has not finished starting, or the address is mistyped | Wait for `Metabase Initialization COMPLETE` in its window, then try again |
 | The restore seems to stop and wait | DBeaver or another window holds the warehouse open | Close DBeaver's open transaction, or close DBeaver, and the restore carries on |
-| Metabase says Java is too old | The Java in `tools` does not match Metabase | Ask your lecturer for the current lab USB |
+| Metabase says Java is too old | The Java in `tools` does not match Metabase | Use the Java the Build your own tools folder page names, or the current lab USB |
 
 If a step still fails, run `setup\0_check_setup.bat` and show its lines to your lecturer.
 
 ## On your own laptop
 
-The same kit runs on your own Windows laptop. Copy the whole kit folder, with its `tools` folder, from the lab USB. If PostgreSQL is already installed on your laptop, the kit's own server runs beside it on its own port.
+The same kit runs on your own Windows laptop. Copy the whole kit folder, with its `tools` folder, from the lab USB. Or build the `tools` folder yourself with the [Build your own tools folder](build-your-tools.html) page. If PostgreSQL is already installed on your laptop, the kit's own server runs beside it on its own port.
