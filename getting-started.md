@@ -7,7 +7,7 @@ This page sets up the four tools you use in every lab: PostgreSQL, DBeaver, Jupy
 You need two things in one folder:
 
 1. **The module files.** Download them from the module's repository page: choose **Code**, then **Download ZIP**. Download them again when a new day is posted.
-2. **The tools folder.** Copy the folder called `tools` from the lab USB drive. Or build it yourself, from the publishers' own downloads, with the [Build your own tools folder](build-your-tools.html) page.
+2. **The tools folder.** Build it with the [Build your own tools folder](build-your-tools.html) page, from the publishers' own downloads. If your computer cannot download them, that page shows how to build the folder on another computer.
 
 You also need a Windows 10 or Windows 11 computer and a web browser.
 
@@ -15,8 +15,8 @@ You also need a Windows 10 or Windows 11 computer and a web browser.
 
 1. Right-click the downloaded ZIP file and choose **Properties**. Tick **Unblock**, then choose **OK**. Windows then does not stop each launcher to ask about it.
 2. Right-click the ZIP file again and choose **Extract All**. Open the extracted folders until you see the `setup` folder.
-3. Move the folder that holds `setup` to a folder you can write to, such as Documents, or to the USB drive itself. Rename it to a short name, such as `DWBI`.
-4. Copy the `tools` folder from the lab USB into it, beside the `setup` folder. If you build your own, follow the Build your own tools folder page instead.
+3. Move the folder that holds `setup` to a folder you can write to, such as Documents. Rename it to a short name, such as `DWBI`.
+4. Build the `tools` folder inside it, beside the `setup` folder, with the Build your own tools folder page.
 
 Keep the full path of the kit folder short: 77 characters or fewer, such as `C:\Users\you\Documents\DWBI`. A longer path breaks some files inside WinPython. A folder name with spaces is fine.
 
@@ -26,7 +26,7 @@ When you are done, the folder looks like this. We call it the kit folder.
 DWBI kit\
     setup\       the launchers you double-click
     days\        notes, lab sheets and data for each day
-    tools\       PostgreSQL, DBeaver, WinPython, Java and Metabase, from the lab USB or built by you
+    tools\       PostgreSQL, DBeaver, WinPython, Java and Metabase, from the Build your own tools folder page
     data\        your databases: the first launcher creates it
     work\        your notebooks and files: Jupyter and psql start here
 ```
@@ -35,7 +35,7 @@ Do not put the kit folder inside OneDrive. Syncing breaks the database files. Av
 
 When a new day is posted, extract the new download over the same kit folder. Your `data`, `work` and `tools` folders stay as they are.
 
-**Note.** If you run the kit from the USB drive, the drive letter may change between computers. That is fine: the launchers find every folder from where they sit.
+**Note.** If you move the kit folder to another computer or drive, its drive letter may change. That is fine: the launchers find every folder from where they sit.
 
 ## Check your setup
 
@@ -44,11 +44,11 @@ Double-click `setup\0_check_setup.bat`. Each line starts with PASS or FAIL. A FA
 | Line | What it means | If it says FAIL |
 |---|---|---|
 | Kit folder | The kit can store your databases here | Move the kit folder to Documents, or out of OneDrive |
-| PostgreSQL | The database server is in `tools` and new enough | Copy the `tools` folder from the lab USB again, or repeat the step the Build your own tools folder page names |
+| PostgreSQL | The database server is in `tools` and new enough | Follow the section and step the FAIL line names, on the Build your own tools folder page |
 | Port 15432 | No other program uses PostgreSQL's port | Open `setup\env.bat` in Notepad and change `PGPORT` to another number, such as 15433 |
-| DBeaver, PostgreSQL driver | The SQL client and its driver file are in `tools` | Copy the `tools` folder from the lab USB again, or repeat the step the Build your own tools folder page names |
-| pandas, Jupyter | WinPython has what the notebooks need | Use the WinPython file the Build your own tools folder page names, or the current lab USB |
-| Java, Metabase | Metabase and the Java it needs are in `tools`. A folder you built needs them once Day 6 is posted | Copy the `tools` folder from the lab USB again, or follow the Build your own tools folder page |
+| DBeaver, PostgreSQL driver | The SQL client and its driver file are in `tools` | Follow the section and step the FAIL line names, on the Build your own tools folder page |
+| pandas, Jupyter | WinPython has what the notebooks need | Follow the section and step the FAIL line names, on the Build your own tools folder page |
+| Java, Metabase | Metabase and the Java it needs are in `tools`, once Day 6 is posted | Follow the section and step the FAIL line names, on the Build your own tools folder page |
 | Day files | Each posted day finds its data files, unchanged | Copy the file again from the module files |
 
 Fix the FAIL lines from the top, then run the check again. When every line says PASS, you are ready.
@@ -79,7 +79,7 @@ To add the warehouse, choose **PostgreSQL**. Type host `localhost`, port `15432`
 
 1. Close DBeaver yourself, so it can ask you to save your SQL scripts.
 2. Double-click `setup\stop_all.bat`. It stops PostgreSQL, Metabase and Jupyter.
-3. Wait for its PASS line before you remove a USB drive.
+3. Wait for its PASS line before you move the kit folder or turn the computer off.
 
 ## Restoring is not cheating
 
@@ -92,17 +92,17 @@ The restore replaces everything in schema `warehouse`, including any table you m
 | What you see | Why | What to do |
 |---|---|---|
 | The check says port 15432 is used by another program | This computer already runs a database on that port | Change `PGPORT` in `setup\env.bat`, then start again |
-| PostgreSQL does not start after you pulled out the USB drive | The server was not stopped, so a lock file was left | Run `1_start_postgres.bat` again: it removes the old lock file |
+| PostgreSQL does not start after the kit folder was moved, or the computer was turned off | The server was not stopped, so a lock file was left | Run `1_start_postgres.bat` again: it removes the old lock file |
 | psql says `invalid command \restrict` | Another, older psql ran instead of the kit's | Use `open_psql.bat`, which runs the kit's own psql |
 | psql says `No such file or directory` | psql started in another folder | Use `cd` to go to the folder that holds the file, then run the command again |
 | Windows asks about the firewall | A program tried to listen on the network | Choose **Cancel**. The kit only uses this computer, so it still works |
 | DBeaver asks to download a driver and cannot | The computer has no internet | In DBeaver, open **Database**, then **Driver Manager**. Edit **PostgreSQL**, open **Libraries** and add the file in `tools\jdbc` |
 | The browser cannot open `http://localhost:3300` | Metabase has not finished starting, or the address is mistyped | Wait for `Metabase Initialization COMPLETE` in its window, then try again |
 | The restore seems to stop and wait | DBeaver or another window holds the warehouse open | Close DBeaver's open transaction, or close DBeaver, and the restore carries on |
-| Metabase says Java is too old | The Java in `tools` does not match Metabase | Use the Java the Build your own tools folder page names, or the current lab USB |
+| Metabase says Java is too old | The Java in `tools` does not match Metabase | Follow section 5 of the Build your own tools folder page |
 
 If a step still fails, run `setup\0_check_setup.bat` and show its lines to your lecturer.
 
 ## On your own laptop
 
-The same kit runs on your own Windows laptop. Copy the whole kit folder, with its `tools` folder, from the lab USB. Or build the `tools` folder yourself with the [Build your own tools folder](build-your-tools.html) page. If PostgreSQL is already installed on your laptop, the kit's own server runs beside it on its own port.
+The same kit runs on your own Windows laptop. Make the kit folder as above, and build its `tools` folder with the [Build your own tools folder](build-your-tools.html) page. If PostgreSQL is already installed on your laptop, the kit's own server runs beside it on its own port.

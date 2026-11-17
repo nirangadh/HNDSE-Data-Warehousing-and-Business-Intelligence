@@ -21,7 +21,7 @@ if errorlevel 1 (
 if errorlevel 1 (
     echo FAIL  PostgreSQL did not stop. Close DBeaver, then run stop_all again.
 ) else (
-    echo PASS  PostgreSQL stopped. You can now remove the USB drive safely.
+    echo PASS  PostgreSQL stopped. You can now close this window, or move the kit folder.
 )
 
 :end

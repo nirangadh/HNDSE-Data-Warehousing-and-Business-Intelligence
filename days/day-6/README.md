@@ -26,9 +26,10 @@ Files appear here before the teaching day.
 
 **Read:**
 
-- The Metabase documentation on questions, visualisations and dashboard filters, on the USB drive.
+- The Metabase documentation on [questions](https://www.metabase.com/docs/latest/questions/introduction), [visualising results](https://www.metabase.com/docs/latest/questions/visualizations/visualizing-results) and [dashboard filters](https://www.metabase.com/docs/latest/dashboards/filters).
+- To read them offline, open each page while you have internet. Press Ctrl+P, choose Save as PDF, and save the file in your kit folder.
 
-**Self-check (issued separately):** one question per idea: chart choice, a dashboard for a role, misleading charts; why a filter changes every visual on the dashboard at once.
+**Self-check (issued separately):** one question per idea: chart choice, a dashboard for a role, misleading charts; why one filter changes every visual.
 
 **Tasks:**
 

@@ -32,7 +32,7 @@ if exist "%DATA%\write_test.txt" (
 
 rem ---- PostgreSQL ---------------------------------------------------------------
 if not exist "%PGBIN%\psql.exe" (
-    call :fail "PostgreSQL not found in tools\pgsql" "Copy the tools folder from the lab USB, or follow the Build your own tools folder page."
+    call :fail "PostgreSQL not found in tools\pgsql" "Follow section 1, step 3 of the Build your own tools folder page."
     goto :after_pg
 )
 "%PGBIN%\psql.exe" --version > "%OUT%" 2>&1
@@ -49,7 +49,7 @@ if "%PGMAJ%"=="16" if %PGMIN% GEQ 10 (
     call :pass "PostgreSQL %PGV%"
     goto :pg_version_done
 )
-call :fail "PostgreSQL %PGV%: the kit needs 16.10 or later in the 16 line" "Use the file named on the Build your own tools folder page, or the current lab USB."
+call :fail "PostgreSQL %PGV%: the kit needs 16.10 or later in the 16 line" "Follow section 1, step 1 of the Build your own tools folder page."
 :pg_version_done
 
 "%PGBIN%\pg_ctl.exe" status -D "%PGDATA%" >nul 2>&1
@@ -86,17 +86,17 @@ rem ---- DBeaver ---------------------------------------------------------------
 if exist "%DBEAVER%\dbeaver.exe" (
     call :pass "DBeaver found"
 ) else (
-    call :fail "DBeaver not found in tools\dbeaver" "Copy the tools folder from the lab USB, or follow the Build your own tools folder page."
+    call :fail "DBeaver not found in tools\dbeaver" "Follow section 3, step 4 of the Build your own tools folder page."
 )
 if exist "%JDBC%\postgresql-*.jar" (
     call :pass "PostgreSQL driver for DBeaver found"
 ) else (
-    call :fail "PostgreSQL driver not found in tools\jdbc" "Copy the tools folder from the lab USB, or follow the Build your own tools folder page."
+    call :fail "PostgreSQL driver not found in tools\jdbc" "Follow section 2, step 3 of the Build your own tools folder page."
 )
 
 rem ---- WinPython, pandas and Jupyter ----------------------------------------------
 if not defined PY (
-    call :fail "WinPython not found in tools" "Copy the tools folder from the lab USB, or follow the Build your own tools folder page. Its folder starts with WPy64."
+    call :fail "WinPython not found in tools" "Follow section 4, step 4 of the Build your own tools folder page."
     goto :after_py
 )
 "%PY%" -c "import pandas; print(pandas.__version__)" > "%OUT%" 2>nul
@@ -109,25 +109,23 @@ if "%PDV:~0,4%"=="3.1." set "PDOK=1"
 if defined PDOK (
     call :pass "pandas %PDV%"
 ) else (
-    call :fail "pandas %PDV%: the labs need pandas 3.0 or 3.1" "Use the file named on the Build your own tools folder page, or the current lab USB."
+    call :fail "pandas %PDV%: the labs need pandas 3.0 or 3.1" "Follow section 4, step 1 of the Build your own tools folder page."
 )
 "%PY%" -c "import jupyterlab" >nul 2>&1
 if not errorlevel 1 (
     call :pass "Jupyter found"
 ) else (
-    call :fail "Jupyter not found in WinPython" "Use the file named on the Build your own tools folder page, or the current lab USB."
+    call :fail "Jupyter not found in WinPython" "Follow section 4, step 1 of the Build your own tools folder page."
 )
 :after_py
 
 rem ---- Java and Metabase ------------------------------------------------------------
-rem A lab USB (tools\lab-usb.txt) carries them from Day 1, and the check needs them then.
-rem A tools folder you built needs them once Day 6 is posted, or as soon as you add them.
+rem Needed once Day 6 is posted, for every tools folder, and tested earlier if present.
 set "NEEDJM="
-if exist "%USBMARK%" set "NEEDJM=1"
 if exist "%DAYS%\day-%JAVA_FROM_DAY%\lab.md" set "NEEDJM=1"
 if not exist "%JAVA_HOME%\bin\java.exe" (
     if defined NEEDJM (
-        call :fail "Java not found in tools" "Copy the tools folder from the lab USB, or follow the Build your own tools folder page."
+        call :fail "Java not found in tools" "Follow section 5 of the Build your own tools folder page."
     ) else (
         call :pass "Java: not needed until Day %JAVA_FROM_DAY%"
     )
@@ -142,13 +140,13 @@ if not defined JMAJ set "JMAJ=0"
 if %JMAJ% GEQ %JAVA_NEEDED% (
     call :pass "Java %JV%"
 ) else (
-    call :fail "Java %JV%: Metabase needs Java %JAVA_NEEDED%" "Use the file named on the Build your own tools folder page, or the current lab USB."
+    call :fail "Java %JV%: Metabase needs Java %JAVA_NEEDED%" "Follow section 5 of the Build your own tools folder page."
 )
 :java_done
 if exist "%MB_JAR%" (
     call :pass "Metabase found"
 ) else if defined NEEDJM (
-    call :fail "Metabase not found in tools\metabase" "Copy the tools folder from the lab USB, or follow the Build your own tools folder page."
+    call :fail "Metabase not found in tools\metabase" "Follow section 5 of the Build your own tools folder page."
 ) else (
     call :pass "Metabase: not needed until Day %JAVA_FROM_DAY%"
 )

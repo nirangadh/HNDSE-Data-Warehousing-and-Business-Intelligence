@@ -6,14 +6,14 @@
 <meta name="generator" content="hndse-dwbi-site">
 <title>Build your own tools folder | Data Warehousing and Business Intelligence</title>
 <meta name="author" content="Niranga Dharmaratna">
-<meta name="description" content="This page builds the tools folder without the lab USB. You need a Windows 10 or Windows 11 computer and internet access. You do not need administrator...">
+<meta name="description" content="This page is how you get the tools folder that the kit needs. You need a Windows 10 or Windows 11 computer and internet access. You do not need administrator...">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="canonical" href="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/build-your-tools.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Data Warehousing and Business Intelligence">
 <meta property="og:title" content="Build your own tools folder">
-<meta property="og:description" content="This page builds the tools folder without the lab USB. You need a Windows 10 or Windows 11 computer and internet access. You do not need administrator...">
+<meta property="og:description" content="This page is how you get the tools folder that the kit needs. You need a Windows 10 or Windows 11 computer and internet access. You do not need administrator...">
 <meta property="og:url" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/build-your-tools.html">
 <meta property="og:locale" content="en_GB">
 <meta property="og:image" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/assets/img/social-card.png">
@@ -31,43 +31,52 @@
 <header class="site-header"><div class="wrap"><div><p class="eyebrow"><a href="index.html">Data Warehousing and Business Intelligence | Level 4</a></p><h1>Build your own tools folder</h1><div class="bars" aria-hidden="true"><i></i><i></i></div></div></div></header>
 <main id="main">
 <div class="wrap prose">
-<p>This page builds the <code>tools</code> folder without the lab USB. You need a Windows 10 or Windows 11 computer and internet access. You do not need administrator rights. Every file comes from its publisher's own page. At the end, the setup check accepts your folder line by line.</p>
+<p>This page is how you get the <code>tools</code> folder that the kit needs. You need a Windows 10 or Windows 11 computer and internet access. You do not need administrator rights. Every file comes from its publisher's own page. At the end, the setup check accepts your folder line by line.</p>
+<p>If your computer cannot download these files, build the folder on one that can. The section <a href="#build-it-on-another-computer">Build it on another computer</a> shows how.</p>
 <h2 id="before-you-start">Before you start</h2>
 <p>Make the kit folder first, as the <a href="getting-started.html">getting started</a> page shows. The module download holds a folder called <code>tools</code>, beside the <code>setup</code> folder, with one text file in it. Everything on this page goes into that folder.</p>
 <p>Keep the full path of the kit folder short: 77 characters or fewer. A good choice is <code class="long">C:\Users\you\Documents\DWBI</code>. With a longer path, some files inside WinPython cannot be extracted.</p>
 <p>Windows marks every file you download from the internet. Before you extract a zip file, remove the mark. Right-click the zip, choose <strong>Properties</strong>, tick <strong>Unblock</strong>, then choose <strong>OK</strong>. This needs no administrator rights. Windows then does not stop each program to ask about it.</p>
-<p>Windows may also show a blue window, "Windows protected your PC", when you start a downloaded program. For the files on this page only, choose <strong>More info</strong>, then <strong>Run anyway</strong>. On a lab computer that button may be missing. Then ask your lecturer.</p>
+<p>Windows may also show a blue window, "Windows protected your PC", when you start a downloaded program. For the files on this page only, choose <strong>More info</strong>, then <strong>Run anyway</strong>. If that button is missing, build the folder on another computer, as the last section shows.</p>
 <p>To check a download, open its folder in File Explorer. Click the address bar, type <code>cmd</code> and press Enter. A Command Prompt opens in that folder, ready for the <code>certutil</code> lines below.</p>
 <h2 id="1-postgresql-1616">1. PostgreSQL 16.16</h2>
 <ol class="steps">
 <li data-n="1"><strong>Download the zip.</strong> Open <a href="https://productsdl.enterprisedb.com/download-postgresql-binaries" rel="noopener">the PostgreSQL binaries page</a>. In the row for version 16.16, click <strong>Windows x86-64</strong>. <span class="expect"><b class="expect-label">You should see</b> your browser saves a zip file in Downloads.</span><span class="fails"><b class="expect-label">If it fails</b> if the row for 16.16 is missing, ask your lecturer. Do not choose another version.</span></li>
 <li data-n="2"><strong>Unblock and extract it.</strong> Unblock the zip as shown above. Right-click it, choose <strong>Extract All</strong>, and extract it in Downloads. <span class="expect"><b class="expect-label">You should see</b> a folder that holds <code>bin\psql.exe</code>.</span><span class="fails"><b class="expect-label">If it fails</b> if Windows says a path is too long, extract the zip into a shorter folder, such as <code>C:\Users\you\pg</code>.</span></li>
-<li data-n="3"><strong>Copy it into tools.</strong> Copy the folder that holds <code>bin</code> into your <code>tools</code> folder, and name it <code>pgsql</code>. <span class="expect"><b class="expect-label">You should see</b> the file <code>tools\pgsql\bin\psql.exe</code> exists.</span><span class="fails"><b class="expect-label">If it fails</b> you copied the wrong level. Open the folders until you see <code>bin</code>, then copy the folder around it.</span></li>
+<li data-n="3"><strong>Copy it into tools.</strong> If <code>tools\pgsql</code> is already there, delete it first. Copy the folder that holds <code>bin</code> into your <code>tools</code> folder, and name it <code>pgsql</code>. <span class="expect"><b class="expect-label">You should see</b> the file <code>tools\pgsql\bin\psql.exe</code> exists.</span><span class="fails"><b class="expect-label">If it fails</b> you copied the wrong level. Open the folders until you see <code>bin</code>, then copy the folder around it.</span></li>
 </ol>
 <p>The publisher prints no checksum for this zip, so there is nothing to compare.</p>
 <h2 id="2-the-postgresql-driver-for-dbeaver">2. The PostgreSQL driver for DBeaver</h2>
 <ol class="steps">
 <li data-n="1"><strong>Download the jar.</strong> Open <a href="https://repo1.maven.org/maven2/org/postgresql/postgresql/42.7.14/postgresql-42.7.14.jar" rel="noopener">the driver file</a>, from the <a href="https://jdbc.postgresql.org/download/" rel="noopener">driver's download page</a>. <span class="expect"><b class="expect-label">You should see</b> <code>postgresql-42.7.14.jar</code> in Downloads.</span><span class="fails"><b class="expect-label">If it fails</b> save the link with a right-click, then choose <strong>Save link as</strong>.</span></li>
 <li data-n="2"><strong>Check it.</strong> In a Command Prompt in Downloads, run <code class="long">certutil -hashfile postgresql-42.7.14.jar SHA1</code>. <span class="expect"><b class="expect-label">You should see</b> <code class="long">0e7c94ce80cb1dd9875ff44ffe6a40a8aaa3eefd</code>.</span><span class="fails"><b class="expect-label">If it fails</b> delete the file and download it again.</span></li>
-<li data-n="3"><strong>Put it in tools.</strong> Make a folder <code>tools\jdbc</code> and move the jar into it. <span class="expect"><b class="expect-label">You should see</b> the file <code class="long">tools\jdbc\postgresql-42.7.14.jar</code> exists.</span><span class="fails"><b class="expect-label">If it fails</b> check that the folder is called <code>jdbc</code>, inside <code>tools</code>.</span></li>
+<li data-n="3"><strong>Put it in tools.</strong> Make a folder <code>tools\jdbc</code> and move the jar into it. If it holds another <code>postgresql</code> jar, delete that one. <span class="expect"><b class="expect-label">You should see</b> the file <code class="long">tools\jdbc\postgresql-42.7.14.jar</code> exists.</span><span class="fails"><b class="expect-label">If it fails</b> check that the folder is called <code>jdbc</code>, inside <code>tools</code>.</span></li>
 </ol>
 <h2 id="3-dbeaver-2625">3. DBeaver 26.2.5</h2>
 <ol class="steps">
 <li data-n="1"><strong>Download the zip.</strong> Open <a href="https://github.com/dbeaver/dbeaver/releases/tag/26.2.5" rel="noopener">the DBeaver release page</a>. Under <strong>Assets</strong>, click <code class="long">dbeaver-ce-26.2.5-windows-x86_64.zip</code>. <span class="expect"><b class="expect-label">You should see</b> that zip in Downloads.</span><span class="fails"><b class="expect-label">If it fails</b> if you see only some files, click <strong>Show all assets</strong>. Do not choose the file that ends in <code>.exe</code>.</span></li>
 <li data-n="2"><strong>Check it.</strong> Run <code class="long">certutil -hashfile dbeaver-ce-26.2.5-windows-x86_64.zip SHA256</code>. <span class="expect"><b class="expect-label">You should see</b> <code class="long">6d137b716061ddd9d1b160ef47a23ab4755d0d393d427809e9a352a351abde4a</code>.</span><span class="fails"><b class="expect-label">If it fails</b> delete the file and download it again.</span></li>
 <li data-n="3"><strong>Unblock and extract it.</strong> Unblock the zip, then use <strong>Extract All</strong> in Downloads. <span class="expect"><b class="expect-label">You should see</b> a folder that holds <code>dbeaver.exe</code>.</span><span class="fails"><b class="expect-label">If it fails</b> check that you chose the zip, not the installer.</span></li>
-<li data-n="4"><strong>Copy it into tools.</strong> Copy the folder that holds <code>dbeaver.exe</code> into <code>tools</code>, and name it <code>dbeaver</code>. <span class="expect"><b class="expect-label">You should see</b> the file <code class="long">tools\dbeaver\dbeaver.exe</code> exists.</span><span class="fails"><b class="expect-label">If it fails</b> open the folders until you see <code>dbeaver.exe</code>, then copy the folder around it.</span></li>
+<li data-n="4"><strong>Copy it into tools.</strong> If <code>tools\dbeaver</code> is already there, delete it first. Copy the folder that holds <code>dbeaver.exe</code> into <code>tools</code>, and name it <code>dbeaver</code>. <span class="expect"><b class="expect-label">You should see</b> the file <code class="long">tools\dbeaver\dbeaver.exe</code> exists.</span><span class="fails"><b class="expect-label">If it fails</b> open the folders until you see <code>dbeaver.exe</code>, then copy the folder around it.</span></li>
 </ol>
 <h2 id="4-winpython-314100">4. WinPython 3.14.10.0</h2>
 <ol class="steps">
 <li data-n="1"><strong>Download the file.</strong> Open <a href="https://github.com/winpython/winpython/releases/tag/2026-04" rel="noopener">the WinPython release page</a>. Under <strong>Assets</strong>, click <code class="long">WinPython64-3.14.10.0slim.exe</code>. <span class="expect"><b class="expect-label">You should see</b> that file in Downloads.</span><span class="fails"><b class="expect-label">If it fails</b> click <strong>Show all assets</strong>, then look for the name again.</span></li>
 <li data-n="2"><strong>Check it.</strong> Run <code class="long">certutil -hashfile WinPython64-3.14.10.0slim.exe SHA256</code>. <span class="expect"><b class="expect-label">You should see</b> <code class="long">d164a73c9f3e202a9d78e819ea4cadf7d75db0fc719a502cf4eb49bfc0293c31</code>.</span><span class="fails"><b class="expect-label">If it fails</b> delete the file and download it again.</span></li>
-<li data-n="3"><strong>Start it.</strong> Double-click the file. If Windows shows "Windows protected your PC", choose <strong>More info</strong>, then <strong>Run anyway</strong>. <span class="expect"><b class="expect-label">You should see</b> a window called "7-Zip self-extracting archive", with an <strong>Extract to:</strong> box.</span><span class="fails"><b class="expect-label">If it fails</b> if <strong>Run anyway</strong> is missing, ask your lecturer.</span></li>
-<li data-n="4"><strong>Extract it into tools.</strong> In <strong>Extract to:</strong>, type the full path of your <code>tools</code> folder, such as <code class="long">C:\Users\you\Documents\DWBI\tools</code>. Then click <strong>Extract</strong>. <span class="expect"><b class="expect-label">You should see</b> the file <code class="long">tools\WPy64-314100\python\python.exe</code> exists.</span><span class="fails"><b class="expect-label">If it fails</b> if a path is too long, your kit folder path is longer than 77 characters. Move the kit to a shorter path and extract again.</span></li>
+<li data-n="3"><strong>Start it.</strong> Double-click the file. If Windows shows "Windows protected your PC", choose <strong>More info</strong>, then <strong>Run anyway</strong>. <span class="expect"><b class="expect-label">You should see</b> a window called "7-Zip self-extracting archive", with an <strong>Extract to:</strong> box.</span><span class="fails"><b class="expect-label">If it fails</b> if <strong>Run anyway</strong> is missing, build the folder on another computer, as the last section shows.</span></li>
+<li data-n="4"><strong>Extract it into tools.</strong> First delete any older folder in <code>tools</code> whose name starts with <code>WPy64</code>. In <strong>Extract to:</strong>, type the full path of your <code>tools</code> folder, such as <code class="long">C:\Users\you\Documents\DWBI\tools</code>. Then click <strong>Extract</strong>. <span class="expect"><b class="expect-label">You should see</b> the file <code class="long">tools\WPy64-314100\python\python.exe</code> exists.</span><span class="fails"><b class="expect-label">If it fails</b> if a path is too long, your kit folder path is longer than 77 characters. Move the kit to a shorter path and extract again.</span></li>
 </ol>
 <p>This file holds Python 3.14.10, pandas 3.0.5 and JupyterLab 4.6.4. It writes only into the folder you choose, and it needs no administrator rights.</p>
 <h2 id="5-java-and-metabase">5. Java and Metabase</h2>
 <p>You add these two before Day 6. Their versions and steps appear here before then. Until Day 6 is posted, the setup check passes without them. If you add them earlier, the check tests them at once.</p>
+<h2 id="build-it-on-another-computer">Build it on another computer</h2>
+<p>Some computers block downloads, or the <strong>Run anyway</strong> button. Then build the folder on a computer that can download, such as your own laptop.</p>
+<ol class="steps">
+<li data-n="1"><strong>Make the kit there.</strong> On the computer that can download, make the kit folder as the <a href="getting-started.html">getting started</a> page shows. Then follow every section above. <span class="expect"><b class="expect-label">You should see</b> the setup check on that computer says PASS for every tool line.</span><span class="fails"><b class="expect-label">If it fails</b> fix each FAIL line there first, as the table below shows.</span></li>
+<li data-n="2"><strong>Stop the tools there.</strong> If you started any tool on that computer, run <code>setup\stop_all.bat</code>. <span class="expect"><b class="expect-label">You should see</b> the line "PASS  PostgreSQL stopped."</span><span class="fails"><b class="expect-label">If it fails</b> close DBeaver and Jupyter, then run <code>stop_all.bat</code> again.</span></li>
+<li data-n="3"><strong>Copy the whole kit folder.</strong> Copy the kit folder, with its <code>setup</code> and <code>tools</code> folders, to the computer you work on. Keep its path at 77 characters or fewer there too. <span class="expect"><b class="expect-label">You should see</b> the copy holds <code>setup\0_check_setup.bat</code> and the <code>tools</code> folder.</span><span class="fails"><b class="expect-label">If it fails</b> copy the folder again, and do not copy only the files inside it.</span></li>
+<li data-n="4"><strong>Check it on the computer you work on.</strong> Go to the next section, and run the setup check there. <span class="expect"><b class="expect-label">You should see</b> every tool line says PASS.</span><span class="fails"><b class="expect-label">If it fails</b> find the FAIL line in the table below, and do what it says.</span></li>
+</ol>
 <h2 id="check-your-folder">Check your folder</h2>
 <ol class="steps">
 <li data-n="1"><strong>Run the setup check.</strong> Double-click <code>setup\0_check_setup.bat</code>. <span class="expect"><b class="expect-label">You should see</b> every tool line says PASS.</span><span class="fails"><b class="expect-label">If it fails</b> find the FAIL line in the table below, and do what it says.</span></li>
@@ -76,7 +85,7 @@
 <thead>
 <tr>
 <th>FAIL line</th>
-<th>What it means for a folder you built</th>
+<th>What it means</th>
 <th>What to do</th>
 </tr>
 </thead>
@@ -84,52 +93,52 @@
 <tr>
 <td>PostgreSQL not found in tools\pgsql</td>
 <td>The file <code>tools\pgsql\bin\psql.exe</code> is missing</td>
-<td>Repeat step 3 of the PostgreSQL section</td>
+<td>Follow section 1, step 3 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>PostgreSQL <em>version</em>: the kit needs 16.10 or later in the 16 line</td>
 <td>The zip was not version 16.16</td>
-<td>Repeat the PostgreSQL section with the row for 16.16</td>
+<td>Follow section 1, step 1 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>PostgreSQL driver not found in tools\jdbc</td>
 <td>The jar is not in <code>tools\jdbc</code></td>
-<td>Repeat step 3 of the driver section</td>
+<td>Follow section 2, step 3 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>DBeaver not found in tools\dbeaver</td>
 <td><code>dbeaver.exe</code> is not in <code>tools\dbeaver</code></td>
-<td>Repeat step 4 of the DBeaver section</td>
+<td>Follow section 3, step 4 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>WinPython not found in tools</td>
 <td>No folder in <code>tools</code> starts with <code>WPy64</code></td>
-<td>Repeat step 4 of the WinPython section</td>
+<td>Follow section 4, step 4 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>pandas <em>version</em>: the labs need pandas 3.0 or 3.1</td>
-<td>You extracted another WinPython file</td>
-<td>Repeat the WinPython section with the file named there</td>
+<td>Another WinPython file was extracted</td>
+<td>Follow section 4, step 1 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>Jupyter not found in WinPython</td>
-<td>You extracted another WinPython file</td>
-<td>Repeat the WinPython section with the file named there</td>
+<td>Another WinPython file was extracted</td>
+<td>Follow section 4, step 1 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>Java not found in tools</td>
 <td>Day 6 is posted, and Java is missing</td>
-<td>Follow the Java and Metabase section</td>
+<td>Follow section 5 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>Java <em>version</em>: Metabase needs Java 25</td>
 <td>The Java folder holds another version</td>
-<td>Follow the Java and Metabase section with the version named there</td>
+<td>Follow section 5 of the Build your own tools folder page.</td>
 </tr>
 <tr>
 <td>Metabase not found in tools\metabase</td>
 <td>Day 6 is posted, and Metabase is missing</td>
-<td>Follow the Java and Metabase section</td>
+<td>Follow section 5 of the Build your own tools folder page.</td>
 </tr>
 </tbody>
 </table></div>
