@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="hndse-dwbi-site">
+<title>Getting started | Data Warehousing and Business Intelligence</title>
+<meta name="author" content="Niranga Dharmaratna">
+<meta name="description" content="This page sets up the four tools you use in every lab: PostgreSQL, DBeaver, Jupyter with pandas, and Metabase. They run from one folder, with no installation...">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/getting-started.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Data Warehousing and Business Intelligence">
+<meta property="og:title" content="Getting started">
+<meta property="og:description" content="This page sets up the four tools you use in every lab: PostgreSQL, DBeaver, Jupyter with pandas, and Metabase. They run from one folder, with no installation...">
+<meta property="og:url" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/getting-started.html">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/assets/img/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dean, the Registrar and the Head of Computing of the Thara Institute of Computing at a whiteboard, with two students.">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/","name":"Data Warehousing and Business Intelligence","position":1},{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/getting-started.html","name":"Getting started","position":2}]}</script>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header"><div class="wrap"><div><p class="eyebrow"><a href="index.html">Data Warehousing and Business Intelligence | Level 4</a></p><h1>Getting started</h1><div class="bars" aria-hidden="true"><i></i><i></i></div></div></div></header>
+<main id="main">
+<div class="wrap prose">
+<p>This page sets up the four tools you use in every lab: PostgreSQL, DBeaver, Jupyter with pandas, and Metabase. They run from one folder, with no installation and no administrator rights. You set them up once, then start them the same way each day.</p>
+<h2 id="what-you-need">What you need</h2>
+<p>You need two things in one folder:</p>
+<ol>
+<li><strong>The module files.</strong> Download them from the module's repository page: choose <strong>Code</strong>, then <strong>Download ZIP</strong>. Download them again when a new day is posted.</li>
+<li><strong>The tools folder.</strong> Copy the folder called <code>tools</code> from the lab USB drive. Your lecturer can also tell you where to download it.</li>
+</ol>
+<p>You also need a Windows 10 or Windows 11 computer and a web browser.</p>
+<h2 id="where-to-put-it">Where to put it</h2>
+<ol>
+<li>Right-click the downloaded ZIP file and choose <strong>Extract All</strong>.</li>
+<li>Choose a folder you can write to, such as one in Documents, or the USB drive itself. A folder name with spaces is fine.</li>
+<li>Copy the <code>tools</code> folder from the lab USB into the extracted folder, beside the <code>setup</code> folder.</li>
+</ol>
+<p>When you are done, the folder looks like this. We call it the kit folder.</p>
+<pre tabindex="0"><code>DWBI kit\
+    setup\       the launchers you double-click
+    days\        notes, lab sheets and data for each day
+    tools\       PostgreSQL, DBeaver, WinPython, Java and Metabase, from the USB
+    data\        your databases: the first launcher creates it
+    work\        your notebooks and files: Jupyter and psql start here
+</code></pre>
+<p>Do not put the kit folder inside OneDrive. Syncing breaks the database files. Avoid the characters <code>!</code> and <code>%</code> in folder names.</p>
+<p>When a new day is posted, extract the new download over the same kit folder. Your <code>data</code>, <code>work</code> and <code>tools</code> folders stay as they are.</p>
+<p><strong>Note.</strong> If you run the kit from the USB drive, the drive letter may change between computers. That is fine: the launchers find every folder from where they sit.</p>
+<h2 id="check-your-setup">Check your setup</h2>
+<p>Double-click <code>setup\0_check_setup.bat</code>. Each line starts with PASS or FAIL. A FAIL line tells you what to do next.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Line</th>
+<th>What it means</th>
+<th>If it says FAIL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kit folder</td>
+<td>The kit can store your databases here</td>
+<td>Move the kit folder to Documents, or out of OneDrive</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>The database server is in <code>tools</code> and new enough</td>
+<td>Copy the <code>tools</code> folder from the lab USB again</td>
+</tr>
+<tr>
+<td>Port 15432</td>
+<td>No other program uses PostgreSQL's port</td>
+<td>Open <code>setup\env.bat</code> in Notepad and change <code>PGPORT</code> to another number, such as 15433</td>
+</tr>
+<tr>
+<td>DBeaver, PostgreSQL driver</td>
+<td>The SQL client and its driver file are in <code>tools</code></td>
+<td>Copy the <code>tools</code> folder from the lab USB again</td>
+</tr>
+<tr>
+<td>pandas, Jupyter</td>
+<td>WinPython has what the notebooks need</td>
+<td>Ask your lecturer for the current lab USB</td>
+</tr>
+<tr>
+<td>Java, Metabase</td>
+<td>Metabase and the Java it needs are in <code>tools</code></td>
+<td>Copy the <code>tools</code> folder from the lab USB again</td>
+</tr>
+<tr>
+<td>Day files</td>
+<td>Each posted day finds its data files, unchanged</td>
+<td>Copy the file again from the module files</td>
+</tr>
+</tbody>
+</table></div>
+<p>Fix the FAIL lines from the top, then run the check again. When every line says PASS, you are ready.</p>
+<h2 id="start-the-tools-in-order">Start the tools in order</h2>
+<p>Double-click each launcher in the <code>setup</code> folder, in this order. Start only the tools today's lab uses.</p>
+<ol>
+<li><strong><code>1_start_postgres.bat</code></strong> starts the database server. The first time, it also creates the database <code>thara</code> and loads the Thara Institute's registration system. Keep its window open while you work.</li>
+<li><strong><code>2_start_dbeaver.bat</code></strong> starts DBeaver. Open the connection called <strong>thara (DWBI kit)</strong>. The user is <code>postgres</code>, with no password.</li>
+<li><strong><code>3_start_jupyter.bat</code></strong> starts Jupyter in your <code>work</code> folder. Your browser opens it. Keep the window open.</li>
+<li><strong><code>4_start_metabase.bat</code></strong> starts Metabase. Wait until its window shows <code class="long">Metabase Initialization COMPLETE</code>, then open <code>http://localhost:3300</code> in your browser. Keep the window open.</li>
+</ol>
+<p>Two more launchers have no number, because you use them only on some days:</p>
+<ul>
+<li><strong><code>open_psql.bat</code></strong> opens a window where psql is ready. Type the lab sheet's commands exactly as written, such as <code>psql -d thara</code>.</li>
+<li><strong><code>restore_warehouse.bat</code></strong> replaces the warehouse with the correct one from Day 4. It ends with PASS when the tables hold 20, 7, 4 and 73 rows.</li>
+</ul>
+<p>Every tool uses the same settings: host <code>localhost</code>, port <code>15432</code>, database <code>thara</code>, user <code>postgres</code>, and no password.</p>
+<h2 id="metabase-the-first-time">Metabase, the first time</h2>
+<p>Metabase asks you to create an account the first time. It stays on your computer. Use any name and an address such as <code>you@thara.example</code>. Choose a password you will remember.</p>
+<p>To add the warehouse, choose <strong>PostgreSQL</strong>. Type host <code>localhost</code>, port <code>15432</code>, database <code>thara</code> and user <code>postgres</code>. Leave the password empty.</p>
+<h2 id="when-you-finish">When you finish</h2>
+<ol>
+<li>Close DBeaver yourself, so it can ask you to save your SQL scripts.</li>
+<li>Double-click <code>setup\stop_all.bat</code>. It stops PostgreSQL, Metabase and Jupyter.</li>
+<li>Wait for its PASS line before you remove a USB drive.</li>
+</ol>
+<h2 id="restoring-is-not-cheating">Restoring is not cheating</h2>
+<p>If your warehouse is wrong, restore it and carry on. Each day's <code>reference</code> folder holds the correct output of that day. Using it costs you nothing.</p>
+<p>The restore replaces everything in schema <code>warehouse</code>, including any table you made there yourself. Schema <code>registration</code> is not touched.</p>
+<h2 id="when-a-step-fails">When a step fails</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>What you see</th>
+<th>Why</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The check says port 15432 is used by another program</td>
+<td>This computer already runs a database on that port</td>
+<td>Change <code>PGPORT</code> in <code>setup\env.bat</code>, then start again</td>
+</tr>
+<tr>
+<td>PostgreSQL does not start after you pulled out the USB drive</td>
+<td>The server was not stopped, so a lock file was left</td>
+<td>Run <code>1_start_postgres.bat</code> again: it removes the old lock file</td>
+</tr>
+<tr>
+<td>psql says <code class="long">invalid command \restrict</code></td>
+<td>Another, older psql ran instead of the kit's</td>
+<td>Use <code>open_psql.bat</code>, which runs the kit's own psql</td>
+</tr>
+<tr>
+<td>psql says <code class="long">No such file or directory</code></td>
+<td>psql started in another folder</td>
+<td>Use <code>cd</code> to go to the folder that holds the file, then run the command again</td>
+</tr>
+<tr>
+<td>Windows asks about the firewall</td>
+<td>A program tried to listen on the network</td>
+<td>Choose <strong>Cancel</strong>. The kit only uses this computer, so it still works</td>
+</tr>
+<tr>
+<td>DBeaver asks to download a driver and cannot</td>
+<td>The computer has no internet</td>
+<td>In DBeaver, open <strong>Database</strong>, then <strong>Driver Manager</strong>. Edit <strong>PostgreSQL</strong>, open <strong>Libraries</strong> and add the file in <code>tools\jdbc</code></td>
+</tr>
+<tr>
+<td>The browser cannot open <code>http://localhost:3300</code></td>
+<td>Metabase has not finished starting, or the address is mistyped</td>
+<td>Wait for <code class="long">Metabase Initialization COMPLETE</code> in its window, then try again</td>
+</tr>
+<tr>
+<td>The restore seems to stop and wait</td>
+<td>DBeaver or another window holds the warehouse open</td>
+<td>Close DBeaver's open transaction, or close DBeaver, and the restore carries on</td>
+</tr>
+<tr>
+<td>Metabase says Java is too old</td>
+<td>The Java in <code>tools</code> does not match Metabase</td>
+<td>Ask your lecturer for the current lab USB</td>
+</tr>
+</tbody>
+</table></div>
+<p>If a step still fails, run <code>setup\0_check_setup.bat</code> and show its lines to your lecturer.</p>
+<h2 id="on-your-own-laptop">On your own laptop</h2>
+<p>The same kit runs on your own Windows laptop. Copy the whole kit folder, with its <code>tools</code> folder, from the lab USB. If PostgreSQL is already installed on your laptop, the kit's own server runs beside it on its own port.</p>
+<nav class="pager" aria-label="Page navigation"><span></span><span><a href="index.html">All days</a></span><span></span></nav>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<p class="author">&copy; Niranga Dharmaratna, School of Computing &amp; Engineering, National Institute of Business Management</p>
+<p>Content licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a>; code licensed MIT; Open Sans under the SIL Open Font Licence. See the <a href="LICENSE-CONTENT.html">licence notes</a>.</p>
+<p>Dates and submissions are announced for your cohort. The Thara Institute of Computing is fictional.</p>
+<p>Anything you mark as done is saved only on this device. Nothing leaves it.</p>
+</div></footer>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

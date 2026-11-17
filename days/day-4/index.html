@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="hndse-dwbi-site">
+<title>Day 4 | Data Warehousing and Business Intelligence</title>
+<meta name="author" content="Niranga Dharmaratna">
+<meta name="description" content="Day 4 of Data Warehousing and Business Intelligence: ETL part 2: reduce and load, then OLAP and Load the warehouse. Notes, lab sheet, slides, practice and things to try, on the Thara Institute of...">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-4/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Data Warehousing and Business Intelligence">
+<meta property="og:title" content="Day 4">
+<meta property="og:description" content="Day 4 of Data Warehousing and Business Intelligence: ETL part 2: reduce and load, then OLAP and Load the warehouse. Notes, lab sheet, slides, practice and things to try, on the Thara Institute of...">
+<meta property="og:url" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-4/">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/assets/img/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dean, the Registrar and the Head of Computing of the Thara Institute of Computing at a whiteboard, with two students.">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/","name":"Data Warehousing and Business Intelligence","position":1},{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-4/","name":"Day 4","position":2}]}</script>
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header"><div class="wrap-wide"><div><p class="eyebrow"><a href="../../index.html">Data Warehousing and Business Intelligence | Level 4</a></p><h1>Day 4</h1><p class="sub">ETL part 2: reduce and load, then OLAP and Load the warehouse</p><div class="bars" aria-hidden="true"><i></i><i></i></div></div></div></header>
+<main id="main">
+<div class="wrap-wide">
+<div class="meta"><span class="badge" title="Learning outcome 3">LO3</span><span class="badge" title="Learning outcome 4">LO4</span><span class="chip shown" title="Loaded warehouse">Shown: component 5</span><span class="chip shown" title="OLAP query shapes">Shown: component 6</span><span class="chip" title="Loaded warehouse">You build: component 5</span><span class="chip" title="OLAP query shapes">You build: component 6</span></div>
+<div class="cols"><section class="slot big" data-slot="d4t"><span class="slot-label">THEORY: NOTES</span><h2>ETL part 2: reduce and load, then OLAP<span class="done-mark">Done</span></h2><p><strong>Ideas covered:</strong> Reduction never lowers the grain; The warehouse invents its own keys; A cube is a set of query shapes.</p>
+<p><strong>Demonstration:</strong> The load in psql.</p>
+<p><strong>Activity:</strong> Name the shape.</p>
+<p><strong>Components introduced:</strong> 5, Loaded warehouse; 6, OLAP query shapes.</p>
+<p class="soon">Posted before this teaching day.</p></section><section class="slot big" data-slot="d4l"><span class="slot-label">LAB: LAB SHEET</span><h2>Load the warehouse<span class="done-mark">Done</span></h2><p><strong>Demonstration:</strong> Read the COPY counts.</p>
+<p><strong>Activity:</strong> Before and after.</p>
+<p><strong>You build:</strong> component 5, Loaded warehouse; component 6, OLAP query shapes.</p>
+<p class="soon">Posted before this teaching day.</p></section></div>
+<section class="after" aria-labelledby="h-after"><h2 id="h-after">After this day</h2><p><strong>Read:</strong></p>
+<ul>
+<li>Han, Kamber and Pei: the sections on OLAP operations and on MOLAP, ROLAP and HOLAP.</li>
+</ul>
+<p><strong>Self-check (issued separately):</strong> one question per idea: reduction, surrogate keys, the cube; why backslash-copy leaves a SERIAL sequence where it was.</p>
+<p><strong>Tasks:</strong></p>
+<ul>
+<li>Read the coursework brief, released today.</li>
+<li>Start the coursework: declare the grain of the clinic warehouse.</li>
+</ul>
+</section>
+<nav class="pager" aria-label="Page navigation"><span>Previous: <a href="../day-3/index.html">Day 3</a></span><span><a href="../../index.html">All days</a></span><span>Next: <a href="../day-5/index.html">Day 5</a></span></nav>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<p class="author">&copy; Niranga Dharmaratna, School of Computing &amp; Engineering, National Institute of Business Management</p>
+<p>Content licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a>; code licensed MIT; Open Sans under the SIL Open Font Licence.</p>
+<p>Dates and submissions are announced for your cohort. The Thara Institute of Computing is fictional.</p>
+<p>Anything you mark as done is saved only on this device. Nothing leaves it.</p>
+</div></footer>
+<script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="hndse-dwbi-site">
+<title>Day 1 reference: three questions the warehouse must answer | Data Warehousing and Business Intelligence</title>
+<meta name="author" content="Niranga Dharmaratna">
+<meta name="description" content="This is a worked example of today&#x27;s deliverable. Compare it with your own page. Your questions may differ and still be right, if each one compares terms or...">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/reference/d1_requirements_reference.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Data Warehousing and Business Intelligence">
+<meta property="og:title" content="Day 1 reference: three questions the warehouse must answer">
+<meta property="og:description" content="This is a worked example of today&#x27;s deliverable. Compare it with your own page. Your questions may differ and still be right, if each one compares terms or...">
+<meta property="og:url" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/reference/d1_requirements_reference.html">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/assets/img/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dean, the Registrar and the Head of Computing of the Thara Institute of Computing at a whiteboard, with two students.">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/","name":"Data Warehousing and Business Intelligence","position":1},{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/","name":"Day 1","position":2},{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/reference/d1_requirements_reference.html","name":"Day 1 reference: three questions the warehouse must answer","position":3}]}</script>
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../../assets/css/site.css">
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header"><div class="wrap"><div><p class="eyebrow"><a href="../../../index.html">Data Warehousing and Business Intelligence | Level 4</a></p><h1>Day 1 reference: three questions the warehouse must answer</h1><div class="bars" aria-hidden="true"><i></i><i></i></div></div></div></header>
+<main id="main">
+<div class="wrap prose">
+<p>This is a worked example of today's deliverable. Compare it with your own page. Your questions may differ and still be right, if each one compares terms or groups many rows.</p>
+<h2 id="the-scenario">The scenario</h2>
+<p>The Thara Institute of Computing records every enrollment in a registration system built for the registration desk. The Dean needs answers across many terms and campuses, so the institute wants a data warehouse beside that system.</p>
+<h2 id="question-1-enrollments-per-course-per-term">Question 1: enrollments per course, per term</h2>
+<div class="table-wrap"><table class="meta-table">
+
+<tbody>
+<tr>
+<td>The question</td>
+<td>How many students enrolled in each course, in each semester of both academic years?</td>
+</tr>
+<tr>
+<td>Who asks</td>
+<td>The Dean</td>
+</tr>
+<tr>
+<td>Data it needs</td>
+<td>Every enrollment, with its course and its term</td>
+</tr>
+<tr>
+<td>Shape of the answer</td>
+<td>A table: one row for each course and term, with a count</td>
+</tr>
+<tr>
+<td>Why not the registration system</td>
+<td>It reads every enrollment and joins it to its course, on the same tables the desk writes. During enrollment week the desk waits behind it.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="question-2-enrollments-by-campus">Question 2: enrollments by campus</h2>
+<div class="table-wrap"><table class="meta-table">
+
+<tbody>
+<tr>
+<td>The question</td>
+<td>How many students enrolled in each course at each campus, term by term?</td>
+</tr>
+<tr>
+<td>Who asks</td>
+<td>The Dean, and the Registrar for the gaps</td>
+</tr>
+<tr>
+<td>Data it needs</td>
+<td>Every enrollment with its term, and each student's campus</td>
+</tr>
+<tr>
+<td>Shape of the answer</td>
+<td>A table: one row for each campus, course and term, with a count</td>
+</tr>
+<tr>
+<td>Why not the registration system</td>
+<td>It holds no campus. The admissions office keeps campus in its own registry, so the two sources must be integrated first.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="question-3-is-demand-for-a-course-growing">Question 3: is demand for a course growing?</h2>
+<div class="table-wrap"><table class="meta-table">
+
+<tbody>
+<tr>
+<td>The question</td>
+<td>Does enrollment in Database Systems grow from one academic year to the next, so that another intake should open?</td>
+</tr>
+<tr>
+<td>Who asks</td>
+<td>The Dean</td>
+</tr>
+<tr>
+<td>Data it needs</td>
+<td>Enrollments per course for the same semester in each academic year</td>
+</tr>
+<tr>
+<td>Shape of the answer</td>
+<td>A comparison: the same course and semester, one year beside the next</td>
+</tr>
+<tr>
+<td>Why not the registration system</td>
+<td>It records events, not trends. Every comparison rereads and regroups the whole history on the live system.</td>
+</tr>
+</tbody>
+</table></div>
+<p>For example, Database Systems had 3 enrollments in Semester 1 of 2023/2024 and 9 in Semester 1 of 2024/2025. That pair is information. Reading it as growth, and acting on it, is knowledge.</p>
+<h2 id="why-none-of-these-is-a-desk-question">Why none of these is a desk question</h2>
+<p>A desk question looks up one record, such as whether student 3003 is enrolled in Web Development this term. All three questions here group many rows or compare terms. That is the work a warehouse is built for.</p>
+<nav class="pager" aria-label="Page navigation"><span></span><span><a href="../../../index.html">All days</a></span><span></span></nav>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<p class="author">&copy; Niranga Dharmaratna, School of Computing &amp; Engineering, National Institute of Business Management</p>
+<p>Content licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a>; code licensed MIT; Open Sans under the SIL Open Font Licence.</p>
+<p>Dates and submissions are announced for your cohort. The Thara Institute of Computing is fictional.</p>
+<p>Anything you mark as done is saved only on this device. Nothing leaves it.</p>
+</div></footer>
+<script src="../../../assets/js/site.js" defer></script>
+</body>
+</html>

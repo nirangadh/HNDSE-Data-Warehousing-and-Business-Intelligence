@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Same question, two designs</title>
+<meta name="description" content="Pick a question from the Thara Institute and see which tables the registration system and the flat warehouse table read, and how many joins each needs.">
+<link rel="stylesheet" href="../../../assets/fonts/fonts.css">
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--navy);font-family:var(--font-body);font-size:1.0625rem;line-height:1.55}
+header{background:var(--navy);color:var(--white);padding:1rem 1.1rem 1.1rem}
+header .eyebrow{display:block;font-size:.8rem;font-weight:700;letter-spacing:.1em;color:var(--grey);text-transform:uppercase}
+header h1{margin:.2rem 0 0;font-size:1.5rem;line-height:1.25}
+.bars{display:flex;gap:.3rem;margin-top:.6rem}.bars span{display:block;height:.35rem;border-radius:2px}
+.bars span:first-child{width:3rem;background:var(--turquoise-tint)}.bars span:last-child{width:1.5rem;background:var(--turquoise)}
+main{max-width:64rem;margin:0 auto;padding:1.1rem}
+p{margin:.4rem 0 .8rem}
+a{color:var(--turquoise-deep)}
+fieldset{border:0;margin:0 0 1rem;padding:0}
+legend{font-weight:700;margin-bottom:.5rem}
+.picks{display:grid;gap:.5rem}
+@media (min-width:44rem){.picks{grid-template-columns:repeat(2,1fr)}}
+.picks label{display:flex;gap:.6rem;align-items:flex-start;min-height:44px;background:var(--white);border:2px solid var(--silver);border-radius:10px;padding:.6rem .8rem;cursor:pointer}
+.picks input{margin-top:.3rem;width:1.1rem;height:1.1rem;flex:none;accent-color:var(--turquoise-deep)}
+.picks label:has(input:checked){border-color:var(--turquoise-deep);background:var(--turquoise-wash)}
+.picks .who{display:block;font-size:.9rem;color:var(--ink-muted)}
+.prompt{background:var(--white);border-left:6px solid var(--turquoise);border-radius:10px;padding:.8rem 1rem;margin:0 0 1rem}
+.prompt strong{display:block;font-size:.8rem;letter-spacing:.1em;color:var(--turquoise-deep)}
+.designs{display:grid;gap:1rem}
+@media (min-width:52rem){.designs{grid-template-columns:1fr 1fr}}
+.design{background:var(--white);border:1px solid var(--hairline);border-radius:14px;padding:1rem;min-width:0}
+.design h2{margin:0 0 .6rem;font-size:1.2rem}
+.schema{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 .8rem}
+.tbl{font-family:var(--font-code);font-weight:700;font-size:1rem;border:2px solid var(--silver);border-radius:8px;padding:.35rem .6rem;background:var(--paper);color:var(--navy)}
+.tbl.read{background:var(--turquoise);border-color:var(--turquoise);color:var(--navy)}
+.tbl .mark{font-family:var(--font-body);font-size:.85rem;font-weight:700}
+.counts{display:grid;grid-template-columns:auto 1fr;gap:.2rem .8rem;margin:0 0 .8rem}
+.counts dt{font-weight:700}.counts dd{margin:0}
+pre{margin:0 0 .6rem;background:var(--navy-deep);color:var(--turquoise-wash);border-radius:10px;padding:.7rem .8rem;font-family:var(--font-code);font-size:.95rem;line-height:1.4;overflow-x:auto;max-height:22rem;overflow-y:auto}
+.label{display:block;font-size:.8rem;font-weight:700;letter-spacing:.1em;color:var(--ink-muted);margin:.2rem 0 .3rem}
+.note{background:var(--turquoise-tint);border-radius:10px;padding:.7rem .9rem;margin:0}
+.notice{margin:1rem 0 0;background:var(--white);border:1px solid var(--hairline);border-left:6px solid var(--turquoise-deep);border-radius:10px;padding:.8rem 1rem}
+footer{max-width:64rem;margin:0 auto;padding:0 1.1rem 2rem;font-size:.9rem;color:var(--ink-muted)}
+</style>
+</head>
+<body>
+<header>
+  <span class="eyebrow">Day 1 visual</span>
+  <h1>Same question, two designs</h1>
+  <div class="bars" aria-hidden="true"><span></span><span></span></div>
+</header>
+<main>
+  <p>The Thara Institute keeps every enrollment in its registration system: four tables joined by keys. In the lab you also build one flat table in schema <code>warehouse</code>, with every enrollment joined once to its student and course. Pick a question and compare the two designs: the tables each one reads, and the joins each one needs.</p>
+  <fieldset>
+    <legend>Pick a question</legend>
+    <div class="picks" id="picks"></div>
+  </fieldset>
+  <div class="prompt" aria-live="polite"><strong id="asker"></strong><span id="prompt"></span></div>
+  <div class="designs">
+    <section class="design" aria-labelledby="h-reg">
+      <h2 id="h-reg">The registration system</h2>
+      <div class="schema" id="schema-registration"></div>
+      <div id="body-registration"></div>
+    </section>
+    <section class="design" aria-labelledby="h-wh">
+      <h2 id="h-wh">The warehouse: one flat table</h2>
+      <div class="schema" id="schema-warehouse"></div>
+      <div id="body-warehouse"></div>
+    </section>
+  </div>
+  <p class="notice" id="notice" aria-live="polite"></p>
+  <p>Every result on this page was produced by running its query on the registration system as the lab loads it. A join count counts JOIN clauses.</p>
+</main>
+<footer>The Thara Institute of Computing is fictional. Code on this page is shared under the MIT licence.</footer>
+<script type="application/json" id="data">
+[
+ {
+  "id": "desk",
+  "label": "The desk's question",
+  "asker": "The registration desk",
+  "prompt": "Is student 3003 enrolled in course 2002 in Semester 1 of 2024/2025?",
+  "notice": "The desk's question reads one enrollment by its key. The registration system is built for exactly this.",
+  "registration": {
+   "tables": [
+    "enrollments"
+   ],
+   "sql": "SELECT enrollment_id, grade\nFROM enrollments\nWHERE student_id = 3003 AND course_id = 2002\n  AND semester = 'Semester 1' AND academic_year = '2024/2025';",
+   "result": " enrollment_id | grade \n---------------+-------\n          5008 | A\n(1 row)",
+   "joins": 0
+  },
+  "warehouse": {
+   "tables": [],
+   "note": "Not the warehouse's job. The desk records and looks up enrollments on the registration system. The warehouse is the Dean's copy, organised for reading history.",
+   "joins": null
+  }
+ },
+ {
+  "id": "term",
+  "label": "The Dean's question, one term",
+  "asker": "The Dean",
+  "prompt": "How many students enrolled in each course in Semester 1 of 2024/2025?",
+  "notice": "Both designs return the same six rows. The registration system needs one join. The flat table needs none.",
+  "registration": {
+   "tables": [
+    "enrollments",
+    "courses"
+   ],
+   "sql": "SELECT c.course_name, COUNT(*) AS enrolled\nFROM enrollments e\nJOIN courses c ON c.course_id = e.course_id\nWHERE e.semester = 'Semester 1' AND e.academic_year = '2024/2025'\nGROUP BY c.course_name\nORDER BY enrolled DESC, c.course_name;",
+   "result": "                course_name                 | enrolled \n--------------------------------------------+----------\n Database Systems                           |        9\n Object Oriented Programming                |        6\n Web Development                            |        6\n Data Warehousing and Business Intelligence |        4\n Financial Accounting                       |        3\n Marketing Principles                       |        3\n(6 rows)",
+   "joins": 1
+  },
+  "warehouse": {
+   "tables": [
+    "enrollment_flat"
+   ],
+   "sql": "SELECT course_name, COUNT(*) AS enrolled\nFROM warehouse.enrollment_flat\nWHERE semester = 'Semester 1' AND academic_year = '2024/2025'\nGROUP BY course_name\nORDER BY enrolled DESC, course_name;",
+   "result": "                course_name                 | enrolled \n--------------------------------------------+----------\n Database Systems                           |        9\n Object Oriented Programming                |        6\n Web Development                            |        6\n Data Warehousing and Business Intelligence |        4\n Financial Accounting                       |        3\n Marketing Principles                       |        3\n(6 rows)",
+   "joins": 0
+  }
+ },
+ {
+  "id": "every",
+  "label": "The Dean's question, every term",
+  "asker": "The Dean",
+  "prompt": "How many students enrolled in each course, in every term of both academic years?",
+  "notice": "This question reads every enrollment ever recorded. As terms pile up, it scans more rows, and on the registration system the desk waits behind it.",
+  "registration": {
+   "tables": [
+    "enrollments",
+    "courses"
+   ],
+   "sql": "SELECT c.course_name, e.academic_year, e.semester, COUNT(*) AS enrolled\nFROM enrollments e\nJOIN courses c ON c.course_id = e.course_id\nGROUP BY c.course_name, e.academic_year, e.semester\nORDER BY c.course_name, e.academic_year, e.semester;",
+   "result": "                course_name                 | academic_year |  semester  | enrolled \n--------------------------------------------+---------------+------------+----------\n Data Warehousing and Business Intelligence | 2023/2024     | Semester 1 |        1\n Data Warehousing and Business Intelligence | 2024/2025     | Semester 1 |        4\n Data Warehousing and Business Intelligence | 2024/2025     | Semester 2 |        5\n Database Systems                           | 2023/2024     | Semester 1 |        3\n Database Systems                           | 2023/2024     | Semester 2 |        4\n Database Systems                           | 2024/2025     | Semester 1 |        9\n Database Systems                           | 2024/2025     | Semester 2 |        2\n Financial Accounting                       | 2023/2024     | Semester 1 |        1\n Financial Accounting                       | 2023/2024     | Semester 2 |        2\n Financial Accounting                       | 2024/2025     | Semester 1 |        3\n Financial Accounting                       | 2024/2025     | Semester 2 |        2\n Marketing Principles                       | 2023/2024     | Semester 1 |        2\n Marketing Principles                       | 2023/2024     | Semester 2 |        2\n Marketing Principles                       | 2024/2025     | Semester 1 |        3\n Marketing Principles                       | 2024/2025     | Semester 2 |        3\n Networking Fundamentals                    | 2023/2024     | Semester 2 |        2\n Networking Fundamentals                    | 2024/2025     | Semester 2 |        5\n Object Oriented Programming                | 2023/2024     | Semester 1 |        1\n Object Oriented Programming                | 2024/2025     | Semester 1 |        6\n Object Oriented Programming                | 2024/2025     | Semester 2 |        3\n Web Development                            | 2023/2024     | Semester 1 |        2\n Web Development                            | 2023/2024     | Semester 2 |        1\n Web Development                            | 2024/2025     | Semester 1 |        6\n Web Development                            | 2024/2025     | Semester 2 |        1\n(24 rows)",
+   "joins": 1
+  },
+  "warehouse": {
+   "tables": [
+    "enrollment_flat"
+   ],
+   "sql": "SELECT course_name, academic_year, semester, COUNT(*) AS enrolled\nFROM warehouse.enrollment_flat\nGROUP BY course_name, academic_year, semester\nORDER BY course_name, academic_year, semester;",
+   "result": "                course_name                 | academic_year |  semester  | enrolled \n--------------------------------------------+---------------+------------+----------\n Data Warehousing and Business Intelligence | 2023/2024     | Semester 1 |        1\n Data Warehousing and Business Intelligence | 2024/2025     | Semester 1 |        4\n Data Warehousing and Business Intelligence | 2024/2025     | Semester 2 |        5\n Database Systems                           | 2023/2024     | Semester 1 |        3\n Database Systems                           | 2023/2024     | Semester 2 |        4\n Database Systems                           | 2024/2025     | Semester 1 |        9\n Database Systems                           | 2024/2025     | Semester 2 |        2\n Financial Accounting                       | 2023/2024     | Semester 1 |        1\n Financial Accounting                       | 2023/2024     | Semester 2 |        2\n Financial Accounting                       | 2024/2025     | Semester 1 |        3\n Financial Accounting                       | 2024/2025     | Semester 2 |        2\n Marketing Principles                       | 2023/2024     | Semester 1 |        2\n Marketing Principles                       | 2023/2024     | Semester 2 |        2\n Marketing Principles                       | 2024/2025     | Semester 1 |        3\n Marketing Principles                       | 2024/2025     | Semester 2 |        3\n Networking Fundamentals                    | 2023/2024     | Semester 2 |        2\n Networking Fundamentals                    | 2024/2025     | Semester 2 |        5\n Object Oriented Programming                | 2023/2024     | Semester 1 |        1\n Object Oriented Programming                | 2024/2025     | Semester 1 |        6\n Object Oriented Programming                | 2024/2025     | Semester 2 |        3\n Web Development                            | 2023/2024     | Semester 1 |        2\n Web Development                            | 2023/2024     | Semester 2 |        1\n Web Development                            | 2024/2025     | Semester 1 |        6\n Web Development                            | 2024/2025     | Semester 2 |        1\n(24 rows)",
+   "joins": 0
+  }
+ },
+ {
+  "id": "campus",
+  "label": "The Dean's question, by campus",
+  "asker": "The Dean",
+  "prompt": "Does either design hold the campus the Dean's second question needs?",
+  "notice": "Neither design holds campus. The admissions office keeps it in its own registry, so the warehouse must integrate both sources. Days 3 and 4 build that.",
+  "registration": {
+   "tables": [
+    "students"
+   ],
+   "sql": "SELECT campus FROM students;",
+   "result": "ERROR:  column \"campus\" does not exist\nLINE 1: SELECT campus FROM students;\n               ^",
+   "joins": 0
+  },
+  "warehouse": {
+   "tables": [
+    "enrollment_flat"
+   ],
+   "sql": "SELECT campus FROM warehouse.enrollment_flat;",
+   "result": "ERROR:  column \"campus\" does not exist\nLINE 1: SELECT campus FROM warehouse.enrollment_flat;\n               ^",
+   "joins": 0
+  }
+ }
+]
+</script>
+<script>
+(function () {
+  var Q = JSON.parse(document.getElementById("data").textContent);
+  var TABLES = {registration: ["students", "courses", "instructors", "enrollments"], warehouse: ["enrollment_flat"]};
+  var picks = document.getElementById("picks");
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+  function show(q) {
+    document.getElementById("asker").textContent = q.asker;
+    document.getElementById("prompt").textContent = q.prompt;
+    document.getElementById("notice").textContent = q.notice;
+    ["registration", "warehouse"].forEach(function (d) {
+      var x = q[d], sc = document.getElementById("schema-" + d), body = document.getElementById("body-" + d);
+      sc.textContent = ""; body.textContent = "";
+      TABLES[d].forEach(function (t) {
+        var read = x.tables.indexOf(t) >= 0, b = el("span", "tbl" + (read ? " read" : ""), t);
+        if (read) { var m = el("span", "mark", " (read)"); b.appendChild(m); }
+        sc.appendChild(b);
+      });
+      if (x.note) { body.appendChild(el("p", "note", x.note)); return; }
+      var dl = el("dl", "counts");
+      dl.appendChild(el("dt", "", "Tables read")); dl.appendChild(el("dd", "", String(x.tables.length)));
+      dl.appendChild(el("dt", "", "JOIN clauses")); dl.appendChild(el("dd", "", String(x.joins)));
+      body.appendChild(dl);
+      body.appendChild(el("span", "label", "THE QUERY"));
+      body.appendChild(el("pre", "", x.sql));
+      body.appendChild(el("span", "label", "WHAT PSQL SHOWS"));
+      body.appendChild(el("pre", "", x.result));
+    });
+  }
+  Q.forEach(function (q, i) {
+    var lab = el("label"), inp = el("input");
+    inp.type = "radio"; inp.name = "q"; inp.value = q.id; if (i === 0) inp.checked = true;
+    inp.addEventListener("change", function () { show(q); });
+    var span = el("span"); span.appendChild(document.createTextNode(q.label)); span.appendChild(el("span", "who", q.asker));
+    lab.appendChild(inp); lab.appendChild(span); picks.appendChild(lab);
+  });
+  show(Q[0]);
+})();
+</script>
+</body>
+</html>
