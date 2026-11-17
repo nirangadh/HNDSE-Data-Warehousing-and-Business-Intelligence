@@ -36,28 +36,28 @@
 <p>You need two things in one folder:</p>
 <ol>
 <li><strong>The module files.</strong> Download them from the module's repository page: choose <strong>Code</strong>, then <strong>Download ZIP</strong>. Download them again when a new day is posted.</li>
-<li><strong>The tools folder.</strong> Copy the folder called <code>tools</code> from the lab USB drive. Or build it yourself, from the publishers' own downloads, with the <a href="build-your-tools.html">Build your own tools folder</a> page.</li>
+<li><strong>The tools folder.</strong> Build it with the <a href="build-your-tools.html">Build your own tools folder</a> page, from the publishers' own downloads. If your computer cannot download them, that page shows how to build the folder on another computer.</li>
 </ol>
 <p>You also need a Windows 10 or Windows 11 computer and a web browser.</p>
 <h2 id="where-to-put-it">Where to put it</h2>
 <ol>
 <li>Right-click the downloaded ZIP file and choose <strong>Properties</strong>. Tick <strong>Unblock</strong>, then choose <strong>OK</strong>. Windows then does not stop each launcher to ask about it.</li>
 <li>Right-click the ZIP file again and choose <strong>Extract All</strong>. Open the extracted folders until you see the <code>setup</code> folder.</li>
-<li>Move the folder that holds <code>setup</code> to a folder you can write to, such as Documents, or to the USB drive itself. Rename it to a short name, such as <code>DWBI</code>.</li>
-<li>Copy the <code>tools</code> folder from the lab USB into it, beside the <code>setup</code> folder. If you build your own, follow the Build your own tools folder page instead.</li>
+<li>Move the folder that holds <code>setup</code> to a folder you can write to, such as Documents. Rename it to a short name, such as <code>DWBI</code>.</li>
+<li>Build the <code>tools</code> folder inside it, beside the <code>setup</code> folder, with the Build your own tools folder page.</li>
 </ol>
 <p>Keep the full path of the kit folder short: 77 characters or fewer, such as <code class="long">C:\Users\you\Documents\DWBI</code>. A longer path breaks some files inside WinPython. A folder name with spaces is fine.</p>
 <p>When you are done, the folder looks like this. We call it the kit folder.</p>
 <pre tabindex="0"><code>DWBI kit\
     setup\       the launchers you double-click
     days\        notes, lab sheets and data for each day
-    tools\       PostgreSQL, DBeaver, WinPython, Java and Metabase, from the lab USB or built by you
+    tools\       PostgreSQL, DBeaver, WinPython, Java and Metabase, from the Build your own tools folder page
     data\        your databases: the first launcher creates it
     work\        your notebooks and files: Jupyter and psql start here
 </code></pre>
 <p>Do not put the kit folder inside OneDrive. Syncing breaks the database files. Avoid the characters <code>!</code> and <code>%</code> in folder names.</p>
 <p>When a new day is posted, extract the new download over the same kit folder. Your <code>data</code>, <code>work</code> and <code>tools</code> folders stay as they are.</p>
-<p><strong>Note.</strong> If you run the kit from the USB drive, the drive letter may change between computers. That is fine: the launchers find every folder from where they sit.</p>
+<p><strong>Note.</strong> If you move the kit folder to another computer or drive, its drive letter may change. That is fine: the launchers find every folder from where they sit.</p>
 <h2 id="check-your-setup">Check your setup</h2>
 <p>Double-click <code>setup\0_check_setup.bat</code>. Each line starts with PASS or FAIL. A FAIL line tells you what to do next.</p>
 <div class="table-wrap"><table>
@@ -77,7 +77,7 @@
 <tr>
 <td>PostgreSQL</td>
 <td>The database server is in <code>tools</code> and new enough</td>
-<td>Copy the <code>tools</code> folder from the lab USB again, or repeat the step the Build your own tools folder page names</td>
+<td>Follow the section and step the FAIL line names, on the Build your own tools folder page</td>
 </tr>
 <tr>
 <td>Port 15432</td>
@@ -87,17 +87,17 @@
 <tr>
 <td>DBeaver, PostgreSQL driver</td>
 <td>The SQL client and its driver file are in <code>tools</code></td>
-<td>Copy the <code>tools</code> folder from the lab USB again, or repeat the step the Build your own tools folder page names</td>
+<td>Follow the section and step the FAIL line names, on the Build your own tools folder page</td>
 </tr>
 <tr>
 <td>pandas, Jupyter</td>
 <td>WinPython has what the notebooks need</td>
-<td>Use the WinPython file the Build your own tools folder page names, or the current lab USB</td>
+<td>Follow the section and step the FAIL line names, on the Build your own tools folder page</td>
 </tr>
 <tr>
 <td>Java, Metabase</td>
-<td>Metabase and the Java it needs are in <code>tools</code>. A folder you built needs them once Day 6 is posted</td>
-<td>Copy the <code>tools</code> folder from the lab USB again, or follow the Build your own tools folder page</td>
+<td>Metabase and the Java it needs are in <code>tools</code>, once Day 6 is posted</td>
+<td>Follow the section and step the FAIL line names, on the Build your own tools folder page</td>
 </tr>
 <tr>
 <td>Day files</td>
@@ -128,7 +128,7 @@
 <ol>
 <li>Close DBeaver yourself, so it can ask you to save your SQL scripts.</li>
 <li>Double-click <code>setup\stop_all.bat</code>. It stops PostgreSQL, Metabase and Jupyter.</li>
-<li>Wait for its PASS line before you remove a USB drive.</li>
+<li>Wait for its PASS line before you move the kit folder or turn the computer off.</li>
 </ol>
 <h2 id="restoring-is-not-cheating">Restoring is not cheating</h2>
 <p>If your warehouse is wrong, restore it and carry on. Each day's <code>reference</code> folder holds the correct output of that day. Using it costs you nothing.</p>
@@ -149,7 +149,7 @@
 <td>Change <code>PGPORT</code> in <code>setup\env.bat</code>, then start again</td>
 </tr>
 <tr>
-<td>PostgreSQL does not start after you pulled out the USB drive</td>
+<td>PostgreSQL does not start after the kit folder was moved, or the computer was turned off</td>
 <td>The server was not stopped, so a lock file was left</td>
 <td>Run <code>1_start_postgres.bat</code> again: it removes the old lock file</td>
 </tr>
@@ -186,13 +186,13 @@
 <tr>
 <td>Metabase says Java is too old</td>
 <td>The Java in <code>tools</code> does not match Metabase</td>
-<td>Use the Java the Build your own tools folder page names, or the current lab USB</td>
+<td>Follow section 5 of the Build your own tools folder page</td>
 </tr>
 </tbody>
 </table></div>
 <p>If a step still fails, run <code>setup\0_check_setup.bat</code> and show its lines to your lecturer.</p>
 <h2 id="on-your-own-laptop">On your own laptop</h2>
-<p>The same kit runs on your own Windows laptop. Copy the whole kit folder, with its <code>tools</code> folder, from the lab USB. Or build the <code>tools</code> folder yourself with the <a href="build-your-tools.html">Build your own tools folder</a> page. If PostgreSQL is already installed on your laptop, the kit's own server runs beside it on its own port.</p>
+<p>The same kit runs on your own Windows laptop. Make the kit folder as above, and build its <code>tools</code> folder with the <a href="build-your-tools.html">Build your own tools folder</a> page. If PostgreSQL is already installed on your laptop, the kit's own server runs beside it on its own port.</p>
 <nav class="pager" aria-label="Page navigation"><span></span><span><a href="index.html">All days</a></span><span></span></nav>
 </div>
 </main>

@@ -9,8 +9,8 @@ rem from where this file sits, so a new drive letter or folder name changes noth
 for %%I in ("%~dp0..") do set "KIT=%%~fI"
 
 rem ---- You may change these lines --------------------------------------------
-rem Where the tools are (from the lab USB, or built with the Build your own tools
-rem folder page), where your databases live, and where Jupyter and psql start.
+rem Where the tools are (the Build your own tools folder page makes them), where
+rem your databases live, and where Jupyter and psql start.
 rem Keep each value inside its quotes.
 set "TOOLS=%KIT%\tools"
 set "DATA=%KIT%\data"
@@ -65,9 +65,7 @@ for /f "delims=" %%W in ('dir /b /ad "%TOOLS%\WPy64-*" 2^>nul') do set "WINPY=%T
 set "PY="
 if defined WINPY for /f "delims=" %%P in ('dir /b /ad "%WINPY%\python*" 2^>nul') do if exist "%WINPY%\%%P\python.exe" set "PY=%WINPY%\%%P\python.exe"
 
-rem A lab USB carries the file tools\lab-usb.txt and so Java and Metabase from
-rem the start. A tools folder you built needs them from this day on.
-set "USBMARK=%TOOLS%\lab-usb.txt"
+rem Java and Metabase are needed from this day on, for every tools folder.
 set "JAVA_FROM_DAY=6"
 
 rem The kit's own psql comes first, before any other PostgreSQL on this computer.

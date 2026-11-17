@@ -9,7 +9,7 @@ set "OUT=%TEMP%\dwbi_pg.txt"
 
 if not exist "%PGBIN%\pg_ctl.exe" (
     echo FAIL  PostgreSQL not found in tools\pgsql.
-    echo       Copy the tools folder from the lab USB, or follow the Build your own tools folder page.
+    echo       Follow section 1, step 3 of the Build your own tools folder page.
     echo       Then run 0_check_setup.
     goto :end
 )

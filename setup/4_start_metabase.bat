@@ -6,8 +6,8 @@ call "%~dp0env.bat"
 title DWBI Metabase
 
 if not exist "%JAVA_HOME%\bin\java.exe" (
-    echo FAIL  Java not found in tools\java.
-    echo       Copy the tools folder from the lab USB, or follow the Build your own tools folder page.
+    echo FAIL  Java not found in tools.
+    echo       Follow section 5 of the Build your own tools folder page.
     echo       Then run 0_check_setup.
     echo.
     pause
@@ -15,7 +15,7 @@ if not exist "%JAVA_HOME%\bin\java.exe" (
 )
 if not exist "%MB_JAR%" (
     echo FAIL  Metabase not found in tools\metabase.
-    echo       Copy the tools folder from the lab USB, or follow the Build your own tools folder page.
+    echo       Follow section 5 of the Build your own tools folder page.
     echo       Then run 0_check_setup.
     echo.
     pause

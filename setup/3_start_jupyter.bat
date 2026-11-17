@@ -7,7 +7,7 @@ title DWBI Jupyter
 
 if not defined PY (
     echo FAIL  WinPython not found in tools. Its folder name starts with WPy64.
-    echo       Copy the tools folder from the lab USB, or follow the Build your own tools folder page.
+    echo       Follow section 4, step 4 of the Build your own tools folder page.
     echo       Then run 0_check_setup.
     echo.
     pause
