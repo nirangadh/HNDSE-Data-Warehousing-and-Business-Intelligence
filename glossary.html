@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="hndse-dwbi-site">
+<title>Glossary | Data Warehousing and Business Intelligence</title>
+<meta name="author" content="Niranga Dharmaratna">
+<meta name="description" content="Every word the module teaches, filed under the day that first uses it.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/glossary.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Data Warehousing and Business Intelligence">
+<meta property="og:title" content="Glossary">
+<meta property="og:description" content="Every word the module teaches, filed under the day that first uses it.">
+<meta property="og:url" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/glossary.html">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/assets/img/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dean, the Registrar and the Head of Computing of the Thara Institute of Computing at a whiteboard, with two students.">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/","name":"Data Warehousing and Business Intelligence","position":1},{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/glossary.html","name":"Glossary","position":2}]}</script>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header"><div class="wrap"><div><p class="eyebrow"><a href="index.html">Data Warehousing and Business Intelligence | Level 4</a></p><h1>Glossary</h1><div class="bars" aria-hidden="true"><i></i><i></i></div></div></div></header>
+<main id="main">
+<div class="wrap prose">
+<p>Every word the module teaches, filed under the day that first uses it.</p>
+<h2 id="day-1">Day 1</h2>
+<h3 id="oltp">OLTP</h3>
+<p>Online transaction processing. A system that records events one row at a time, with insert, update, delete and look-up. Each event it records is called a transaction.
+<em>Thara example:</em> The registration desk adds one enrollment for a student at the counter. That is OLTP work.</p>
+<h3 id="olap">OLAP</h3>
+<p>Online analytical processing. Work that reads many rows at once and groups them to count, sum and compare.
+<em>Thara example:</em> Counting the enrollments in each course for one term is OLAP work.</p>
+<h3 id="workload">workload</h3>
+<p>The kind of work a database does most of the time: many small writes, or large reads over history.
+<em>Thara example:</em> The registration system's workload is the desk's small writes, all day, during enrollment week.</p>
+<h3 id="data-warehouse">data warehouse</h3>
+<p>A separate system that holds history for analysis. It is subject-oriented, integrated, time-variant and non-volatile.
+<em>Thara example:</em> The institute's warehouse will answer the Dean's questions without slowing the registration desk.</p>
+<h3 id="subject-oriented">subject-oriented</h3>
+<p>Organised around the subject people ask about, not around the screens of the system that records it.
+<em>Thara example:</em> The warehouse is organised around enrollment, the subject the Dean asks about.</p>
+<h3 id="integrated">integrated</h3>
+<p>Every source uses one spelling for each value and one key for each thing it describes.
+<em>Thara example:</em> A student keeps one key in the warehouse, whether the row came from the registration system or the admissions registry.</p>
+<h3 id="time-variant">time-variant</h3>
+<p>Every row carries the time it belongs to, so one period can be compared with another.
+<em>Thara example:</em> Each enrollment carries its semester and academic year, so Semester 1 of 2024/2025 can be compared with Semester 1 of 2023/2024.</p>
+<h3 id="non-volatile">non-volatile</h3>
+<p>Rows are loaded and read, not edited, so a report gives the same answer next month.
+<em>Thara example:</em> An enrollment loaded into the warehouse is never changed in place by the desk.</p>
+<h3 id="data">data</h3>
+<p>A recorded fact about one event, with no context around it.
+<em>Thara example:</em> Student 3003 enrolled in Web Development in Semester 1 of 2024/2025.</p>
+<h3 id="information">information</h3>
+<p>Data with context, so it can be read and compared.
+<em>Thara example:</em> Database Systems had 9 enrollments in Semester 1 of 2024/2025, more than any other course.</p>
+<h3 id="knowledge">knowledge</h3>
+<p>A pattern you can act on, found by reading information over time and in context.
+<em>Thara example:</em> Whether demand for Database Systems grows from one year to the next.</p>
+<h3 id="decision-support-system">decision support system</h3>
+<p>A system that helps people move from stored data to a decision, with questions they ask themselves.
+<em>Thara example:</em> The warehouse and its dashboards help the Dean decide whether to open another intake.</p>
+<nav class="pager" aria-label="Page navigation"><span></span><span><a href="index.html">All days</a></span><span></span></nav>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<p class="author">&copy; Niranga Dharmaratna, School of Computing &amp; Engineering, National Institute of Business Management</p>
+<p>Content licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a>; code licensed MIT; Open Sans under the SIL Open Font Licence. See the <a href="LICENSE-CONTENT.html">licence notes</a>.</p>
+<p>Dates and submissions are announced for your cohort. The Thara Institute of Computing is fictional.</p>
+<p>Anything you mark as done is saved only on this device. Nothing leaves it.</p>
+</div></footer>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

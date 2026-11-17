@@ -1,53 +1,53 @@
 # Glossary
 
-Every word this module introduces, in one place. The **Day** column shows the day the word was first taught. A word keeps that day even when a later day uses it again.
+Every word the module teaches, filed under the day that first uses it.
 
-Use this list when a word in the slides or the notes is unfamiliar. The words are in alphabetical order.
+## Day 1
 
----
+### OLTP
+Online transaction processing. A system that records events one row at a time, with insert, update, delete and look-up. Each event it records is called a transaction.
+*Thara example:* The registration desk adds one enrollment for a student at the counter. That is OLTP work.
 
-| Term | Day | What it means | Example |
-|---|---|---|---|
-| **5Vs** | 1 | The five properties used to describe big data: volume, velocity, variety, veracity and value. | Social media posts arrive fast and in many formats, so they score high on velocity and variety. |
-| **Additive measure** | 2 | A fact value that sums correctly across every dimension. | `enrollment_count` can be summed by course, by term, or by both. |
-| **Big data** | 1 | Datasets too large or too complex for traditional tools to handle. | Every click on a national e-commerce site for one year. |
-| **DAMA UK** | 1 | The Data Management Association, which publishes the six data quality dimensions. | The six dimensions are used to score a raw file before it is cleaned. |
-| **Data** | 1 | Raw facts and figures, with no context added yet. | `student_id: S001, course_id: CS101, grade: 72` |
-| **Data warehouse** | 1 | A subject-oriented, integrated, time-variant and non-volatile store of data, built for analysis. | The enrollment warehouse this module builds across the week. |
-| **DBeaver** | 1 | The open-source SQL client and diagram viewer used in this module. | You write `CREATE TABLE` in DBeaver and view the ERD it draws. |
-| **DDL** | 2 | Data Definition Language. The SQL statements that define the structure of a database. | `CREATE TABLE dim_course (...)` is a DDL statement. |
-| **Denormalisation** | 1 | Deliberately storing repeated, flattened data so reads are simpler and faster. | Storing `department_name` inside `dim_course` instead of in a separate table. |
-| **Dimension table** | 1 | A table holding descriptive context that you slice and group by. | `dim_course` holds the course code, title and department. |
-| **DSS** | 1 | Decision Support System. A computer system that helps a person make a decision. | A report that shows whether to open another intake. |
-| **ETL** | 1 | Extract, Transform, Load. The process that moves data from a source system into a warehouse. | Reading a raw CSV, cleaning it, then loading it into the warehouse. |
-| **Fact table** | 1 | The central table holding the measurements, plus foreign keys to each dimension. | `fact_enrollment` holds one row per enrollment. |
-| **Foreign key** | 2 | A column that references the primary key of another table. | `fact_enrollment.course_key` references `dim_course.course_key`. |
-| **Grain** | 1 | The exact business event that one row of the fact table represents. | One row represents one student enrolled in one course during one academic term. |
-| **Information** | 1 | Data that has been given context and meaning. | "72 is the grade CS101 gave to student S001 in Semester 1." |
-| **Inmon** | 1 | Bill Inmon, who defined the data warehouse in 1990. | Inmon's four properties are used to test whether a store is a warehouse. |
-| **Kimball** | 1 | Ralph Kimball, who developed the dimensional modelling approach in 1996. | The star schema in this module follows Kimball's approach. |
-| **Knowledge** | 1 | Understanding gained from information, which lets you act. | "Grades fall in courses with more than 60 students, so cap the intake." |
-| **Metadata** | 1 | Data about data. It describes the context, origin and format of something. | The column names, data types and last-updated date of a table. |
-| **Natural key** | 2 | The original identifier carried over from the source system. | `student_id` as the registry writes it, such as `S001`. |
-| **Normalisation** | 1 | A design principle that stores each fact exactly once, in one place. | Splitting `courses` and `departments` into two tables so a department name is stored once. |
-| **OLAP** | 1 | Online Analytical Processing. Reading large amounts of history to answer a question. | Counting enrollments per department across four terms. |
-| **OLTP** | 1 | Online Transaction Processing. Recording operational events as they happen. | Saving one new enrollment as a student registers. |
-| **PostgreSQL** | 1 | The open-source database engine used for both the source system and the warehouse. | Both the OLTP demo database and the warehouse run on PostgreSQL. |
-| **Semi-structured data** | 1 | Data with partial or inconsistent structure. | A JSON file where some records carry fields that others do not. |
-| **Snowflake schema** | 2 | A star schema where one or more dimensions are split further into sub-dimensions. | `dim_course` splitting out into a separate `dim_department` table. |
-| **Star schema** | 1 | A design with one fact table joined directly to each dimension, and no dimension-to-dimension joins. | `fact_enrollment` joined to `dim_student`, `dim_course` and `dim_date`. |
-| **Structured data** | 1 | Data held in a consistent, organised format. | Rows and columns in a SQL table. |
-| **Surrogate key** | 1 | A key the warehouse generates itself. It has no meaning in the source system. | `student_key` counting 1, 2, 3, while the source still uses `S001`. |
-| **Unstructured data** | 1 | Data with no predefined format. | Photographs, audio recordings and free text. |
+### OLAP
+Online analytical processing. Work that reads many rows at once and groups them to count, sum and compare.
+*Thara example:* Counting the enrollments in each course for one term is OLAP work.
 
----
+### workload
+The kind of work a database does most of the time: many small writes, or large reads over history.
+*Thara example:* The registration system's workload is the desk's small writes, all day, during enrollment week.
 
-## How this list grows
+### data warehouse
+A separate system that holds history for analysis. It is subject-oriented, integrated, time-variant and non-volatile.
+*Thara example:* The institute's warehouse will answer the Dean's questions without slowing the registration desk.
 
-A new set of words is added on the day it is taught. Nothing is ever removed, and no word changes its day tag.
+### subject-oriented
+Organised around the subject people ask about, not around the screens of the system that records it.
+*Thara example:* The warehouse is organised around enrollment, the subject the Dean asks about.
 
-Words currently listed: 31, covering Days 1 and 2.
+### integrated
+Every source uses one spelling for each value and one key for each thing it describes.
+*Thara example:* A student keeps one key in the warehouse, whether the row came from the registration system or the admissions registry.
 
----
+### time-variant
+Every row carries the time it belongs to, so one period can be compared with another.
+*Thara example:* Each enrollment carries its semester and academic year, so Semester 1 of 2024/2025 can be compared with Semester 1 of 2023/2024.
 
-*Version 1.0 · 23 August 2026*
+### non-volatile
+Rows are loaded and read, not edited, so a report gives the same answer next month.
+*Thara example:* An enrollment loaded into the warehouse is never changed in place by the desk.
+
+### data
+A recorded fact about one event, with no context around it.
+*Thara example:* Student 3003 enrolled in Web Development in Semester 1 of 2024/2025.
+
+### information
+Data with context, so it can be read and compared.
+*Thara example:* Database Systems had 9 enrollments in Semester 1 of 2024/2025, more than any other course.
+
+### knowledge
+A pattern you can act on, found by reading information over time and in context.
+*Thara example:* Whether demand for Database Systems grows from one year to the next.
+
+### decision support system
+A system that helps people move from stored data to a decision, with questions they ask themselves.
+*Thara example:* The warehouse and its dashboards help the Dean decide whether to open another intake.

@@ -1,0 +1,23 @@
+/* Palette slots carry the module's warm-earth colours. Open Sans, self-hosted. SIL Open Font License 1.1, see OFL.txt in this folder. */
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("OpenSans-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-style: italic; font-weight: 400; font-display: swap;
+  src: url("OpenSans-Italic.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("OpenSans-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("OpenSans-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: 800; font-display: swap;
+  src: url("OpenSans-ExtraBold.woff2") format("woff2"); }
+
+:root {
+  --font-heading: "Open Sans", Arial, sans-serif;
+  --font-body: "Open Sans", Arial, sans-serif;
+  --font-code: "Courier New", monospace;
+  --turquoise: #EB5600; --navy: #2B1D12; --paper: #FBF7F0; --silver: #BDBDAC; --grey: #C4A882; --white: #FFFFFF;
+  --turquoise-deep: #7A5230; --turquoise-tint: #F2E6D0; --turquoise-wash: #F5EDE0;
+  --navy-raised: #4A3320; --navy-deep: #1A1A1A; --ink-muted: #595959;
+  --signal-amber: #F0B54A; --signal-coral: #5B6B7A;
+  --hairline: #E8DFD0;
+  --caramel: #A07848;  /* the analogy strip: a strip colour only, never text */
+}

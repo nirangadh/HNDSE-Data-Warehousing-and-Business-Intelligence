@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="hndse-dwbi-site">
+<title>Lab 1: Same question, two systems | Data Warehousing and Business Intelligence</title>
+<meta name="author" content="Niranga Dharmaratna">
+<meta name="description" content="Day 1 lab sheet: Same question, two systems. You explore the registration system, ask the Dean&#x27;s question of two designs, and write the questions the...">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/lab.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Data Warehousing and Business Intelligence">
+<meta property="og:title" content="Lab 1: Same question, two systems">
+<meta property="og:description" content="Day 1 lab sheet: Same question, two systems. You explore the registration system, ask the Dean&#x27;s question of two designs, and write the questions the...">
+<meta property="og:url" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/lab.html">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/assets/img/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dean, the Registrar and the Head of Computing of the Thara Institute of Computing at a whiteboard, with two students.">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","author":{"@type":"Person","affiliation":{"@type":"Organization","name":"School of Computing & Engineering, National Institute of Business Management"},"name":"Niranga Dharmaratna"},"description":"Day 1 lab sheet: Same question, two systems. You explore the registration system, ask the Dean's question of two designs, and write the questions the...","inLanguage":"en-GB","isAccessibleForFree":true,"isPartOf":{"@id":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/#course","@type":"Course","name":"Data Warehousing and Business Intelligence","url":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/"},"learningResourceType":"Lab sheet","license":"https://creativecommons.org/licenses/by-nc-sa/4.0/","name":"Lab 1: Same question, two systems","url":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/lab.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/","name":"Data Warehousing and Business Intelligence","position":1},{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/","name":"Day 1","position":2},{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/days/day-1/lab.html","name":"Lab 1: Same question, two systems","position":3}]}</script>
+<link rel="stylesheet" href="../../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../../assets/css/site.css">
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header"><div class="wrap"><div><p class="eyebrow"><a href="../../index.html">Data Warehousing and Business Intelligence | Level 4</a></p><h1>Same question, two systems</h1><p class="sub">Day 1, lab sheet</p><div class="bars" aria-hidden="true"><i></i><i></i></div></div></div></header>
+<main id="main">
+<div class="wrap prose">
+<div class="meta"><span class="badge" title="Learning outcome 1">LO1</span><span class="chip">You build: component 2</span><span class="chip shown">Shown: component 1</span></div>
+<p>You explore the registration system, ask the Dean's question of two designs, and write the questions the warehouse must answer.</p>
+<div class="table-wrap"><table class="meta-table">
+
+<tbody>
+<tr>
+<td>Learning outcomes</td>
+<td>LO1</td>
+</tr>
+<tr>
+<td>You build</td>
+<td>component 1, Registration system (shown), and component 2, Requirements</td>
+</tr>
+<tr>
+<td>Input</td>
+<td><code>d1_registration.sql</code>, loaded into the database <code>thara</code> by the starter kit</td>
+</tr>
+<tr>
+<td>Today's deliverable</td>
+<td>one-page scenario and three questions the warehouse must answer</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="before-you-start">Before you start</h2>
+<ol>
+<li><strong>Check your setup.</strong> Double-click <code>setup\0_check_setup.bat</code>. <span class="expect"><b class="expect-label">You should see</b> every line says PASS, including the line for <code class="long">days\day-1\sql\d1_registration.sql</code>. If a line says FAIL, do what it says, then run the check again.</span></li>
+<li><strong>Start PostgreSQL.</strong> Double-click <code class="long">setup\1_start_postgres.bat</code>, and keep its window open. <span class="expect"><b class="expect-label">You should see</b> a PASS line that says the registration system is loaded, or that <code>thara</code> holds it.</span></li>
+<li><strong>Start DBeaver.</strong> Double-click <code class="long">setup\2_start_dbeaver.bat</code>, then open the connection <strong>thara (DWBI kit)</strong>. <span class="expect"><b class="expect-label">You should see</b> the database <code>thara</code>, with the schemas <code>registration</code> and <code>warehouse</code>.</span></li>
+<li><strong>Check your input.</strong> Open an SQL editor on <code>thara</code> and run <code class="long">SELECT COUNT(*) FROM registration.enrollments;</code> <span class="expect"><b class="expect-label">You should see</b> <code>73</code>. If it does not return 73, load the file again. Double-click <code>setup\open_psql.bat</code>, run <code class="long">psql -d thara -f ..\days\day-1\sql\d1_registration.sql</code>, then run the count again.</span></li>
+</ol>
+<h2 id="objective">Objective</h2>
+<p>At the end of this lab you have seen the same question answered by two designs, and you have counted the joins each one needs. You also have three questions the warehouse must answer, and Day 2 tests its star schema against them.</p>
+<div class="qc"><p class="qc-label">Quick check</p><p class="qc-q">The Dean asks whether student 3001 has a grade for Database Systems this term. What kind of question is that?</p><ol class="qc-opts"><li>A warehouse question, because the Dean asks it</li><li data-right="">A look-up of one record, so an OLTP question<span class="qc-key"> (answer)</span></li><li>A warehouse question, because it names a course</li></ol><p class="qc-why"><strong>Why:</strong> The question finds one enrollment. A look-up of one record is an OLTP question, even when a manager asks it. A warehouse question compares terms or groups many rows.</p></div>
+<h2 id="steps">Steps</h2>
+<p>Every step says what to run, what you should see, and what to do if you do not see it. If you do not see the expected result, stop and fix that step before you go on. Run every step in the same SQL editor.</p>
+<p class="segment">Exercise 1: Explore the registration system</p>
+<ol class="steps">
+<li data-n="1">
+<p><strong>Point the editor at the registration system.</strong> Open an SQL editor on the database <code>thara</code> in DBeaver, and run:
+<code class="cmd">SET search_path TO registration;</code>
+<span class="expect"><b class="expect-label">You should see</b> DBeaver reports <code>SET</code>.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">syntax error at or near "path"</code> means a word is missing. The setting is one word, search_path, with an underscore.</span></p>
+</li>
+<li data-n="2">
+<p><strong>Count the rows in each of the four tables.</strong></p>
+<pre tabindex="0"><code class="language-sql">SELECT 'students' AS table_name, COUNT(*) AS row_count FROM students
+UNION ALL SELECT 'courses', COUNT(*) FROM courses
+UNION ALL SELECT 'instructors', COUNT(*) FROM instructors
+UNION ALL SELECT 'enrollments', COUNT(*) FROM enrollments;
+</code></pre>
+<p><span class="expect"><b class="expect-label">You should see</b> four rows: <code>students | 24</code>, <code>courses | 7</code>, <code>instructors | 4</code> and <code>enrollments | 73</code>.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">relation "students" does not exist</code> means the editor is not pointed at the registration system. Run Step 1 again in the same editor.</span></p>
+</li>
+<li data-n="3">
+<p><strong>Open the diagram of schema <code>registration</code>.</strong> Right-click the schema, then choose View Diagram.
+<span class="expect"><b class="expect-label">You should see</b> four tables. <code>enrollments</code> has three lines, to <code>students</code>, <code>courses</code> and <code>instructors</code>.</span><span class="fails"><b class="expect-label">If it fails</b> a diagram with one table and no lines means you opened a table, not the schema. Right-click <code>registration</code> itself.</span></p>
+<figure class="art"><svg aria-labelledby="reg-t reg-d" role="img" style="min-width:290px" viewbox="0 0 290 300"><title id="reg-t">The registration system</title><desc id="reg-d">Four tables. The enrollments table, in the middle, holds 73 rows and has three key lines: to students with 24 rows, to courses with 7 rows and to instructors with 4 rows.</desc><rect fill="#FFFFFF" height="300" width="290"></rect><path d="M110 118 L72 70" stroke="#2B1D12" stroke-width="2.5"></path><path d="M180 118 L218 70" stroke="#2B1D12" stroke-width="2.5"></path><path d="M145 184 L145 230" stroke="#2B1D12" stroke-width="2.5"></path><rect fill="#FBF7F0" height="66" rx="8" stroke="#2B1D12" stroke-width="1.5" width="136" x="4" y="4"></rect><text fill="#2B1D12" font-family="Open Sans, Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle" x="72" y="32">students</text><text fill="#2B1D12" font-family="Open Sans, Arial, sans-serif" font-size="17" font-weight="400" text-anchor="middle" x="72" y="56">24 rows</text><rect fill="#FBF7F0" height="66" rx="8" stroke="#2B1D12" stroke-width="1.5" width="136" x="150" y="4"></rect><text fill="#2B1D12" font-family="Open Sans, Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle" x="218" y="32">courses</text><text fill="#2B1D12" font-family="Open Sans, Arial, sans-serif" font-size="17" font-weight="400" text-anchor="middle" x="218" y="56">7 rows</text><rect fill="#EB5600" height="66" rx="8" stroke="#2B1D12" stroke-width="1.5" width="136" x="77" y="118"></rect><text fill="#2B1D12" font-family="Open Sans, Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle" x="145" y="146">enrollments</text><text fill="#2B1D12" font-family="Open Sans, Arial, sans-serif" font-size="17" font-weight="400" text-anchor="middle" x="145" y="170">73 rows</text><rect fill="#FBF7F0" height="66" rx="8" stroke="#2B1D12" stroke-width="1.5" width="136" x="77" y="230"></rect><text fill="#2B1D12" font-family="Open Sans, Arial, sans-serif" font-size="18" font-weight="700" text-anchor="middle" x="145" y="258">instructors</text><text fill="#2B1D12" font-family="Open Sans, Arial, sans-serif" font-size="17" font-weight="400" text-anchor="middle" x="145" y="282">4 rows</text></svg><figcaption>The registration system: four tables joined by keys. <a class="full" href="img/registration.svg">Open this diagram at full size</a></figcaption></figure>
+</li>
+<li data-n="4">
+<p><strong>Ask the desk's kind of question.</strong> Is student 3003 enrolled in course 2002 in Semester 1 of 2024/2025?</p>
+<pre tabindex="0"><code class="language-sql">SELECT enrollment_id, grade
+FROM enrollments
+WHERE student_id = 3003 AND course_id = 2002
+  AND semester = 'Semester 1' AND academic_year = '2024/2025';
+</code></pre>
+<p><span class="expect"><b class="expect-label">You should see</b> one row: <code>5008 | A</code>.</span><span class="fails"><b class="expect-label">If it fails</b> <code>(0 rows)</code> means a value is typed differently from the data. The academic year is written 2024/2025, with a slash, and the semester is Semester 1.</span></p>
+</li>
+</ol>
+<p class="segment">Exercise 2: Ask the Dean's question twice</p>
+<ol class="steps" start="5">
+<li data-n="5"><strong>Ask the Dean's question for one term.</strong> How many students enrolled in each course in Semester 1 of 2024/2025?<pre tabindex="0"><code class="language-sql">SELECT c.course_name, COUNT(*) AS enrolled
+FROM enrollments e
+JOIN courses c ON c.course_id = e.course_id
+WHERE e.semester = 'Semester 1' AND e.academic_year = '2024/2025'
+GROUP BY c.course_name
+ORDER BY enrolled DESC, c.course_name;
+</code></pre>
+<span class="expect"><b class="expect-label">You should see</b> six rows, from <code>Database Systems | 9</code> down to <code>Marketing Principles | 3</code>, and <code>(6 rows)</code>.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">must appear in the GROUP BY clause</code> means GROUP BY is missing. Every column you select beside COUNT must be named in GROUP BY.</span></li>
+<li data-n="6"><strong>Keep the courses that had no enrollment that term.</strong> Start from courses and use a left join.<pre tabindex="0"><code class="language-sql">SELECT c.course_name, COUNT(e.enrollment_id) AS enrolled
+FROM courses c
+LEFT JOIN enrollments e ON e.course_id = c.course_id
+     AND e.semester = 'Semester 1' AND e.academic_year = '2024/2025'
+GROUP BY c.course_name
+ORDER BY enrolled DESC, c.course_name;
+</code></pre>
+<span class="expect"><b class="expect-label">You should see</b> seven rows, ending with <code class="long">Networking Fundamentals | 0</code>.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">Networking Fundamentals | 1</code> means you wrote COUNT(*), which counts the course row itself. Count e.enrollment_id, which is empty when no enrollment matched.</span></li>
+<li data-n="7"><strong>Ask for the campus, which the Dean's second question needs.</strong>
+<code class="cmd">SELECT campus FROM students;</code>
+<span class="expect"><b class="expect-label">You should see</b> an error: <code class="long">ERROR: column "campus" does not exist</code>. The registration system does not hold campus.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">relation "students" does not exist</code> instead means the editor lost the schema. Run Step 1 again, then this step.</span></li>
+<li data-n="8"><strong>Build one flat table in schema <code>warehouse</code>.</strong> Join every enrollment once to its student and course.<pre tabindex="0"><code class="language-sql">CREATE TABLE warehouse.enrollment_flat AS
+SELECT e.enrollment_id, s.first_name, s.last_name, c.course_name, c.department,
+       e.semester, e.academic_year, e.grade
+FROM enrollments e
+JOIN students s ON s.student_id = e.student_id
+JOIN courses c ON c.course_id = e.course_id;
+</code></pre>
+<span class="expect"><b class="expect-label">You should see</b> DBeaver reports <code>SELECT 73</code>: one row for each enrollment.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">relation "enrollment_flat" already exists</code> means you ran this step before. Run Step 10 to drop the table, then run this step again.</span></li>
+<li data-n="9"><strong>Ask the Dean's question of the flat table.</strong> It needs no join.<pre tabindex="0"><code class="language-sql">SELECT course_name, COUNT(*) AS enrolled
+FROM warehouse.enrollment_flat
+WHERE semester = 'Semester 1' AND academic_year = '2024/2025'
+GROUP BY course_name
+ORDER BY enrolled DESC, course_name;
+</code></pre>
+<span class="expect"><b class="expect-label">You should see</b> the same six rows as Step 5, from <code>Database Systems | 9</code>, with no join.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">relation "enrollment_flat" does not exist</code> means the schema name is missing. Write warehouse.enrollment_flat, because the editor points at registration.</span></li>
+<li data-n="10"><strong>Drop the flat table, so schema <code>warehouse</code> is empty again for Day 2.</strong>
+<code class="cmd">DROP TABLE warehouse.enrollment_flat;</code>
+<span class="expect"><b class="expect-label">You should see</b> DBeaver reports <code>DROP TABLE</code>.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">table "enrollment_flat" does not exist</code> means it is already dropped. Go on: the Prove it check confirms the schema is empty.</span></li>
+</ol>
+<p class="segment">Exercise 3: Turn the voices into requirements</p>
+<p>Work in pairs. Read what the Dean, the Registrar and the Head of Computing ask, in <a href="../../scenario/organisation.html#3-the-three-voices">the scenario</a>. Write three questions the warehouse must answer. For each one, name the data it needs and the shape of the answer. Say why the registration system cannot answer it well.</p>
+<p>You are finished when you have one page: the scenario in two sentences and three questions. Each question compares terms or groups many rows, and none is a look-up of one record.</p>
+<p>If you are stuck, start from the Dean's question in Step 5. Ask it for every term, then by campus, and say which system holds each piece.</p>
+<section class="mark prove"><h2 id="prove-it"><span class="mark-chip">PROVE IT</span> Prove it</h2>
+<p>Run these three checks in the same editor, and paste the output into your evidence.</p>
+<pre tabindex="0"><code class="language-sql">SELECT 'students' AS table_name, COUNT(*) AS row_count FROM students
+UNION ALL SELECT 'courses', COUNT(*) FROM courses
+UNION ALL SELECT 'instructors', COUNT(*) FROM instructors
+UNION ALL SELECT 'enrollments', COUNT(*) FROM enrollments;
+</code></pre>
+<p><span class="expect"><b class="expect-label">You should see</b> <code>students | 24</code>, <code>courses | 7</code>, <code>instructors | 4</code>, <code>enrollments | 73</code>.</span></p>
+<pre tabindex="0"><code class="language-sql">SELECT COUNT(*) AS missing_grades
+FROM enrollments
+WHERE grade IS NULL
+  AND NOT (semester = 'Semester 2' AND academic_year = '2024/2025');
+</code></pre>
+<p><span class="expect"><b class="expect-label">You should see</b> <code>missing_grades</code> is <code>4</code>: grades nobody entered for terms that have ended.</span></p>
+<pre tabindex="0"><code class="language-sql">SELECT COUNT(*) AS warehouse_tables
+FROM information_schema.tables
+WHERE table_schema = 'warehouse';
+</code></pre>
+<p><span class="expect"><b class="expect-label">You should see</b> <code>warehouse_tables</code> is <code>0</code>.</span></p>
+</section><section class="mark break"><h2 id="break-it"><span class="mark-chip">BREAK IT</span> Break it</h2>
+<p>Try to record the same enrollment twice.</p>
+<pre tabindex="0"><code class="language-sql">INSERT INTO enrollments VALUES (5100, 3001, 2001, 4001, 'Semester 1', '2024/2025', '2024-09-01', NULL);
+</code></pre>
+<p>You see <code class="long">duplicate key value violates unique constraint "enrollments_one_per_term"</code>. The error names the constraint that allows one enrollment per student, course and term. There is nothing to undo. The registration system refused the row, so duplicates can only come from outside it.</p>
+</section><section class="mark restore"><h2 id="if-your-result-is-wrong"><span class="mark-chip">IF WRONG</span> If your result is wrong</h2>
+<p>The correct output of today is in <code>reference/</code>: <a href="reference/d1_requirements_reference.html">d1_requirements_reference.md</a> is a worked page of three questions. Compare it with yours and carry on. You may use it whenever you need to, and it costs you no marks. It means one bad result never blocks the rest of your week.</p>
+<p>If the counts in Prove it differ, load the registration system again. Double-click <code>setup\open_psql.bat</code> and run <code class="long">psql -d thara -f ..\days\day-1\sql\d1_registration.sql</code>. It rebuilds schema <code>registration</code> only.</p>
+</section><h2 id="todays-deliverable">Today's deliverable</h2>
+<p>one-page scenario and three questions the warehouse must answer. Keep it as one page, on paper or as a document, and bring it to Day 2.</p>
+<section class="mark evidence"><h2 id="evidence"><span class="mark-chip">EVIDENCE</span> Evidence</h2>
+<ul>
+<li>Screenshots of the results of Steps 2, 5 and 9.</li>
+<li>Your one-page scenario with the three questions.</li>
+</ul>
+</section><h2 id="thara-connection">Thara connection</h2>
+<p>The Dean asked how many students enrolled in each course, per term and per campus, over two years. Today you saw why the registration system answers that slowly, and why it cannot answer by campus at all. The Dean will ask whether your three questions cover that request. The Registrar will ask which source holds each piece of data.</p>
+
+<section class="resources" aria-labelledby="h-res"><h2 id="h-res">Everything for this lab</h2><ul><li><a href="slides/day-1-lab.pdf">Slides for this lab (PDF)</a></li><li><a href="plays/p1-words.html">Words ladder: the day&#x27;s words</a> (practice)</li><li><a href="plays/p1-1-desk-or-dean.html">The desk or the Dean?</a> (practice)</li><li><a href="plays/p1-2-check-the-evidence.html">Check the evidence</a> (practice)</li><li><a href="plays/p1-quiz.html">Day quiz: ten Thara situations</a> (practice)</li></ul></section><div class="progress-box"><button class="btn" type="button" data-progress="d1l">Mark this lab as done</button><span class="progress-note">A record for you, saved only on this device. It never locks or unlocks anything.</span></div><nav class="pager" aria-label="Page navigation"><span>Previous: <a href="../../days/day-1/notes.html">Day 1 theory</a></span><span><a href="index.html">Day 1</a></span><span></span></nav>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<p class="author">&copy; Niranga Dharmaratna, School of Computing &amp; Engineering, National Institute of Business Management</p>
+<p>Content licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a>; code licensed MIT; Open Sans under the SIL Open Font Licence.</p>
+<p>Dates and submissions are announced for your cohort. The Thara Institute of Computing is fictional.</p>
+<p>Anything you mark as done is saved only on this device. Nothing leaves it.</p>
+</div></footer>
+<script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

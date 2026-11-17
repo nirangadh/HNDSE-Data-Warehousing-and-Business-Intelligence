@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="hndse-dwbi-site">
+<title>Thara Institute of Computing | Data Warehousing and Business Intelligence</title>
+<meta name="author" content="Niranga Dharmaratna">
+<meta name="description" content="The institute every lab in Days 1 to 6 builds for. The Thara Institute of Computing is fictional, and any likeness to a real institute is accidental.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/scenario/organisation.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Data Warehousing and Business Intelligence">
+<meta property="og:title" content="Thara Institute of Computing">
+<meta property="og:description" content="The institute every lab in Days 1 to 6 builds for. The Thara Institute of Computing is fictional, and any likeness to a real institute is accidental.">
+<meta property="og:url" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/scenario/organisation.html">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/assets/img/social-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Dean, the Registrar and the Head of Computing of the Thara Institute of Computing at a whiteboard, with two students.">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/","name":"Data Warehousing and Business Intelligence","position":1},{"@type":"ListItem","item":"https://nirangadh.github.io/HNDSE-Data-Warehousing-and-Business-Intelligence/scenario/organisation.html","name":"Thara Institute of Computing","position":2}]}</script>
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<link rel="stylesheet" href="../assets/css/site.css">
+<script>document.documentElement.className = "js";</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the content</a>
+<header class="site-header"><div class="wrap"><div><p class="eyebrow"><a href="../index.html">Data Warehousing and Business Intelligence | Level 4</a></p><h1>Thara Institute of Computing</h1><div class="bars" aria-hidden="true"><i></i><i></i></div></div></div></header>
+<main id="main">
+<div class="wrap prose">
+<p>The institute every lab in Days 1 to 6 builds for. The Thara Institute of Computing is fictional, and any likeness to a real institute is accidental.</p>
+<h2 id="1-profile">1. Profile</h2>
+<p>Thara Institute of Computing is a private higher-education institute in Sri Lanka. It teaches at two campuses, Colombo and Kandy, and runs an online programme. Two programmes share most of their courses: the BSc (Hons) Computing and the HND in Software Engineering. A smaller School of Business teaches accounting and marketing courses that computing students may take as electives.</p>
+<p>Every student, course and enrollment is recorded in one student registration system. That system was built for the registration desk: it adds, changes and looks up one record at a time, quickly and correctly. A separate admissions office keeps its own student registry as a spreadsheet export, with each student's date of birth, gender, entry year, campus and programme.</p>
+<h2 id="2-what-went-wrong">2. What went wrong</h2>
+<p>Last year, the Dean asked a simple question. How many students enrolled in each course, each semester, at each campus, over two years? The answer took a week. The first attempt ran a large query on the live registration system during enrollment week, and the registration desk slowed to a crawl. The second attempt combined spreadsheet exports from three offices, and the three gave three different totals. Nobody could say which total was right, or why the others were wrong.</p>
+<p>The institute now wants a data warehouse. It is one place, separate from the live system. There, these questions are answered quickly, and the same way every time.</p>
+<h2 id="3-the-three-voices">3. The three voices</h2>
+<p>These are roles, not named people. You meet them at the start of each day and in the practice activities.</p>
+<ul>
+<li><strong>The Dean of Academic Affairs</strong> asks the questions a decision needs. Should the institute open another intake? Which courses are growing? Where do students fail? The Dean wants one number to trust, not a spreadsheet.</li>
+<li><strong>The Registrar</strong> owns the student data and answers for its quality. The Registrar knows where the registration system and the admissions registry disagree, and does not want the warehouse to hide it.</li>
+<li><strong>The Head of Computing</strong> runs the courses, the timetable and the lecturers. The Head wants to see enrollment and results by course, by lecturer and by term, and to plan next semester from them.</li>
+</ul>
+<h2 id="4-the-questions-the-warehouse-must-answer">4. The questions the warehouse must answer</h2>
+<p>These come from the voices on Day 1, and later days test the warehouse against them.</p>
+<ol>
+<li>How many students enrolled in each course, in each semester and academic year? (Dean)</li>
+<li>How do enrollment and results differ by campus, programme, gender and entry year? (Dean, Registrar)</li>
+<li>Which courses grow or shrink from one year to the next, and where should another intake open? (Dean)</li>
+<li>Which lecturers teach the courses with the highest enrollment? (Head of Computing; answered by an optional extension, a fourth dimension for lecturers)</li>
+<li>How many grades are still missing for terms that have ended? (Registrar)</li>
+</ol>
+<h2 id="5-the-source-systems">5. The source systems</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>What it holds</th>
+<th>Where it is used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Student registration system (OLTP)</td>
+<td>Tables <code>students</code>, <code>courses</code>, <code>instructors</code>, <code>enrollments</code>, normalised</td>
+<td>Day 1, compared with the warehouse; Day 2, the source the star is designed from</td>
+</tr>
+<tr>
+<td>Enrollment extract</td>
+<td><code>enrollments_raw.csv</code>: one wide row per enrollment, exported from the registration system with its real defects</td>
+<td>Day 3</td>
+</tr>
+<tr>
+<td>Admissions registry</td>
+<td><code>student_registry.csv</code>: one row per student, from the admissions office's spreadsheet</td>
+<td>Day 3, the second source integrated</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="6-the-warehouse-being-built">6. The warehouse being built</h2>
+<p>A star schema in PostgreSQL. The grain is fixed, word for word:</p>
+<p><strong>One row in fact_enrollment represents one student enrolled in one course during one academic term.</strong></p>
+<p>The fact table <code>fact_enrollment</code> carries <code>grade</code> and the additive measure <code>enrollment_count</code>. Three dimensions carry the context: <code>dim_student</code>, <code>dim_course</code> (with the department denormalised onto it) and <code>dim_date</code> (one row per academic term). You design it on Day 2 and fill it on Days 3 and 4. You query it on Days 4 and 5, and build a dashboard on it on Day 6.</p>
+<p>Day 7 leaves the institute. The capstone runs the same method on a public e-commerce dataset (Olist), so students see that the method transfers and the domain does not.</p>
+<h2 id="7-the-warehouse-you-will-build">7. The warehouse you will build</h2>
+<p>Each lab lights up numbered components on the <a href="architecture.svg">warehouse diagram</a>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>No.</th>
+<th>Component</th>
+<th>What it is</th>
+<th>Day</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Registration system</td>
+<td>the normalised OLTP database (students, courses, instructors, enrollments), compared with the warehouse</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Requirements</td>
+<td>the voices' questions, turned into what the warehouse must answer</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Star schema</td>
+<td>fact_enrollment and dim_student, dim_course, dim_date in PostgreSQL, from DDL, with the seed rows</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Conformed enrollment file</td>
+<td>enrollments_conformed.csv, 73 rows, from the enrollment extract and the admissions registry in a pandas notebook</td>
+<td>3</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Loaded warehouse</td>
+<td>reduced, keyed and loaded by psql backslash-copy, dimensions before the fact; dw_complete.sql</td>
+<td>4</td>
+</tr>
+<tr>
+<td>6</td>
+<td>OLAP query shapes</td>
+<td>slice, dice, drill down, roll up and pivot with ROLLUP, CUBE and GROUPING SETS</td>
+<td>4, 5</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Dashboard</td>
+<td>Metabase connected to the warehouse; five visuals and filters for one role</td>
+<td>5, 6</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Capstone warehouse</td>
+<td>the whole pipeline again on the e-commerce domain, from design to dashboard</td>
+<td>7</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="8-names-used-in-labs">8. Names used in labs</h2>
+<p>Every name a lab uses is in this table.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Kind</th>
+<th>Names</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OLTP tables</td>
+<td><code>students</code>, <code>courses</code>, <code>instructors</code>, <code>enrollments</code></td>
+</tr>
+<tr>
+<td>Warehouse tables</td>
+<td><code>fact_enrollment</code>, <code>dim_student</code>, <code>dim_course</code>, <code>dim_date</code>; optional extension <code>dim_instructor</code></td>
+</tr>
+<tr>
+<td>Keys</td>
+<td>surrogate <code>student_key</code>, <code>course_key</code>, <code>date_key</code>, <code>enrollment_key</code>; natural <code>student_id</code>, <code>course_id</code>, <code>enrollment_id</code></td>
+</tr>
+<tr>
+<td>Day 3 files</td>
+<td><code>enrollments_raw.csv</code> (78 rows), <code>student_registry.csv</code> (22 rows), output <code class="long">enrollments_conformed.csv</code> (73 rows), manifest <code>d3_data_manifest.md</code></td>
+</tr>
+<tr>
+<td>Day 3 notebooks</td>
+<td><code>d3_etl_skeleton.ipynb</code>, <code>d3_etl_solution.ipynb</code></td>
+</tr>
+<tr>
+<td>Day 4 files</td>
+<td><code>dw_complete.sql</code> (the populated warehouse), load report <code>d4_load_report.md</code></td>
+</tr>
+<tr>
+<td>Courses</td>
+<td>2001 Database Systems, 2002 Web Development, 2003 Object Oriented Programming, 2004 Data Warehousing and Business Intelligence, 2005 Financial Accounting, 2006 Marketing Principles, 2007 Networking Fundamentals</td>
+</tr>
+<tr>
+<td>Departments</td>
+<td>Computing, Business</td>
+</tr>
+<tr>
+<td>Campuses</td>
+<td>Colombo, Kandy, Online</td>
+</tr>
+<tr>
+<td>Programmes</td>
+<td>BSc (Hons) Computing, HND Software Engineering</td>
+</tr>
+<tr>
+<td>Terms</td>
+<td>Semester 1 and Semester 2 of 2023/2024 and 2024/2025</td>
+</tr>
+<tr>
+<td>Lecturers</td>
+<td>Dr. S. Fonseka, Mr. R. Abeywardena, Ms. T. Herath, Dr. N. Wijesuriya</td>
+</tr>
+<tr>
+<td>Student ids</td>
+<td>3001 to 3024; 3001 is the student whose duplicate in the registry causes the Day 3 fan-out</td>
+</tr>
+<tr>
+<td>Email domain</td>
+<td><code>thara.example</code></td>
+</tr>
+</tbody>
+</table></div>
+<nav class="pager" aria-label="Page navigation"><span></span><span><a href="../index.html">All days</a></span><span></span></nav>
+</div>
+</main>
+<footer class="site-footer"><div class="wrap">
+<p class="author">&copy; Niranga Dharmaratna, School of Computing &amp; Engineering, National Institute of Business Management</p>
+<p>Content licensed <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener">CC BY-NC-SA 4.0</a>; code licensed MIT; Open Sans under the SIL Open Font Licence. See the <a href="../LICENSE-CONTENT.html">licence notes</a>.</p>
+<p>Dates and submissions are announced for your cohort. The Thara Institute of Computing is fictional.</p>
+<p>Anything you mark as done is saved only on this device. Nothing leaves it.</p>
+</div></footer>
+<script src="../assets/js/site.js" defer></script>
+</body>
+</html>
