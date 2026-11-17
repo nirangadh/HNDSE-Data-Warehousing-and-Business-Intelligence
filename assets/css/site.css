@@ -165,7 +165,13 @@ section.mark.evidence{border-left-color:var(--turquoise-deep)}
 
 /* Figures */
 figure.art{overflow-x:auto;margin:1.6rem 0;background:var(--white);border:1px solid var(--hairline);border-radius:var(--radius);padding:1rem}
-figure.art img,figure.art svg{display:block;width:100%;max-width:none;height:auto}
+figure.art img{display:block;width:100%;max-width:none;height:auto}
+/* Drawings have two layouts. The narrow one keeps its phone scale (min-width: its viewBox width) and grows at most
+   1.12 times; from 44rem the wide one shows, drawn at its display width, at most 87.5% of the frame. */
+figure.art svg{display:block;width:100%;min-width:var(--art-vbw);max-width:calc(var(--art-vbw) * 1.12);height:auto;margin:0 auto}
+figure.art svg.art-wide{display:none;width:var(--art-w);min-width:0;max-width:87.5%}
+figure.art a.art-wide{display:none}
+@media (min-width:44rem){figure.art svg.art-narrow,figure.art a.art-narrow{display:none}figure.art svg.art-wide{display:block}figure.art a.art-wide{display:inline}}
 figure.art figcaption{margin-top:.6rem;font-size:.9rem;color:var(--ink-muted);position:sticky;left:0}
 figure.art .full{white-space:nowrap}
 
@@ -242,6 +248,7 @@ figure.art .full{white-space:nowrap}
   .bars,.skip,.progress-box,.pager,.quicklinks,.tip,.btn,.actions{display:none!important}
   a{color:var(--navy);text-decoration:underline}
   .day,.box,.qc,.case-hook,figure.art,ol.steps>li,section.mark{break-inside:avoid}
+  figure.art svg.art-narrow,figure.art a.art-narrow{display:none!important}figure.art svg.art-wide{display:block!important;width:calc(var(--art-w) * 0.875);max-width:100%}figure.art a.art-wide{display:inline!important}
   .partbar{background:var(--white);color:var(--navy);border:2px solid var(--navy)}
   .qc-why,.qc-key{display:block!important}.qc-key{display:inline!important}
   th{background:var(--turquoise-tint);color:var(--navy)}
