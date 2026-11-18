@@ -26,7 +26,7 @@ Files appear here before the teaching day.
 
 - Kimball and Caserta, The Data Warehouse ETL Toolkit: the chapter on cleaning and conforming.
 
-**Self-check (issued separately):** one question per idea: the quality dimensions, the grain as a business key, counting across a join; why df.duplicated() with no subset returns 0 on this file.
+**Self-check:** The notes' Self-Check asks one question per idea: the quality dimensions, the grain as a business key, counting across a join. From the lab, explain why df.duplicated() with no subset returns 0 on this file.
 
 **Tasks:**
 

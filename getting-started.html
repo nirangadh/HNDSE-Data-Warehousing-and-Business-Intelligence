@@ -35,7 +35,7 @@
 <h2 id="what-you-need">What you need</h2>
 <p>You need two things in one folder:</p>
 <ol>
-<li><strong>The module files.</strong> Download them from the module's repository page: choose <strong>Code</strong>, then <strong>Download ZIP</strong>. Download them again when a new day is posted.</li>
+<li><strong>The module files.</strong> <a href="https://github.com/nirangadh/HNDSE-Data-Warehousing-and-Business-Intelligence/archive/refs/heads/main.zip" rel="noopener">Download the module files as one ZIP</a>. The same ZIP is on the <a href="https://github.com/nirangadh/HNDSE-Data-Warehousing-and-Business-Intelligence" rel="noopener">module's repository page</a>, under <strong>Code</strong>, then <strong>Download ZIP</strong>. Download it again when a new day is posted.</li>
 <li><strong>The tools folder.</strong> Build it with the <a href="build-your-tools.html">Build your own tools folder</a> page, from the publishers' own downloads. If your computer cannot download them, that page shows how to build the folder on another computer.</li>
 </ol>
 <p>You also need a Windows 10 or Windows 11 computer and a web browser.</p>
@@ -48,7 +48,7 @@
 </ol>
 <p>Keep the full path of the kit folder short: 77 characters or fewer, such as <code class="long">C:\Users\you\Documents\DWBI</code>. A longer path breaks some files inside WinPython. A folder name with spaces is fine.</p>
 <p>When you are done, the folder looks like this. We call it the kit folder.</p>
-<pre tabindex="0"><code>DWBI kit\
+<pre tabindex="0"><code>DWBI\
     setup\       the launchers you double-click
     days\        notes, lab sheets and data for each day
     tools\       PostgreSQL, DBeaver, WinPython, Java and Metabase, from the Build your own tools folder page
@@ -56,7 +56,14 @@
     work\        your notebooks and files: Jupyter and psql start here
 </code></pre>
 <p>Do not put the kit folder inside OneDrive. Syncing breaks the database files. Avoid the characters <code>!</code> and <code>%</code> in folder names.</p>
-<p>When a new day is posted, extract the new download over the same kit folder. Your <code>data</code>, <code>work</code> and <code>tools</code> folders stay as they are.</p>
+<p>When a new day is posted, update the kit folder like this:</p>
+<ol>
+<li>Download the ZIP again, unblock it, and use <strong>Extract All</strong> in Downloads, as above.</li>
+<li>Open the extracted folders until you see the <code>setup</code> folder.</li>
+<li>Select everything at that level, choose <strong>Copy</strong>, then open your kit folder and choose <strong>Paste</strong>.</li>
+<li>When Windows asks about files with the same names, choose <strong>Replace the files in the destination</strong>.</li>
+</ol>
+<p>Your <code>data</code>, <code>work</code> and <code>tools</code> folders stay as they are, because the download has none of them. If you changed <code>PGPORT</code> in <code>setup\env.bat</code>, the new copy sets it back, so change it again.</p>
 <p><strong>Note.</strong> If you move the kit folder to another computer or drive, its drive letter may change. That is fine: the launchers find every folder from where they sit.</p>
 <h2 id="check-your-setup">Check your setup</h2>
 <p>Double-click <code>setup\0_check_setup.bat</code>. Each line starts with PASS or FAIL. A FAIL line tells you what to do next.</p>
@@ -118,18 +125,88 @@
 <p>Two more launchers have no number, because you use them only on some days:</p>
 <ul>
 <li><strong><code>open_psql.bat</code></strong> opens a window where psql is ready. Type the lab sheet's commands exactly as written, such as <code>psql -d thara</code>.</li>
-<li><strong><code>restore_warehouse.bat</code></strong> replaces the warehouse with the correct one from Day 4. It ends with PASS when the tables hold 20, 7, 4 and 73 rows.</li>
+<li><strong><code>restore_warehouse.bat</code></strong> replaces the warehouse with the correct one from Day 4. It ends with PASS when the tables hold 20, 7, 4 and 73 rows. Those are <code>dim_student</code>, <code>dim_course</code>, <code>dim_date</code> and <code>fact_enrollment</code>, in that order.</li>
 </ul>
-<p>Every tool uses the same settings: host <code>localhost</code>, port <code>15432</code>, database <code>thara</code>, user <code>postgres</code>, and no password.</p>
+<p>Every tool uses the same settings: host <code>localhost</code>, port <code>15432</code>, database <code>thara</code>, user <code>postgres</code>, and no password. If you changed <code>PGPORT</code> in <code>setup\env.bat</code>, use your number wherever this site says port <code>15432</code>.</p>
+<h2 id="running-sql-in-dbeaver">Running SQL in DBeaver</h2>
+<ol>
+<li>In DBeaver's <strong>Database Navigator</strong>, open the connection <strong>thara (DWBI kit)</strong>. Open the levels under it until you see <strong>Schemas</strong>.</li>
+<li>To open an SQL editor, select the connection, then choose <strong>SQL Editor</strong> and <strong>New SQL script</strong>.</li>
+<li>To run one statement, put the cursor inside it and press <strong>Ctrl+Enter</strong>. Leave an empty line between statements, so DBeaver can tell them apart.</li>
+<li>Run each statement once. <strong>Execute script</strong>, Alt+X, runs every statement in the editor again, so a load runs twice.</li>
+<li>To see a diagram, right-click a schema, such as <code>registration</code>, and choose <strong>View Diagram</strong>.</li>
+</ol>
+<p>The lab sheets write each result the way psql prints it. This is how each one looks in DBeaver:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>The lab sheet shows</th>
+<th>What it means</th>
+<th>In DBeaver you see</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Database Systems | 9</code></td>
+<td>one row of a result, its columns split by <code>|</code></td>
+<td>one row of the result grid, the same values in the same order</td>
+</tr>
+<tr>
+<td><code>(6 rows)</code></td>
+<td>how many rows the result has</td>
+<td>the count of rows at the foot of the result, such as <code>6 row(s) fetched</code></td>
+</tr>
+<tr>
+<td><code>SET</code>, <code>CREATE TABLE</code>, <code>DROP TABLE</code></td>
+<td>the statement ran</td>
+<td>no error. The <strong>Statistics</strong> tab shows <code>Updated Rows 0</code></td>
+</tr>
+<tr>
+<td><code>INSERT 0 6</code></td>
+<td>rows were added: the last number is the count, and the <code>0</code> before it is always <code>0</code></td>
+<td>the <strong>Statistics</strong> tab shows <code>Updated Rows 6</code></td>
+</tr>
+<tr>
+<td><code>SELECT 73</code> after <code>CREATE TABLE ... AS</code></td>
+<td>the new table holds that many rows</td>
+<td>the <strong>Statistics</strong> tab shows <code>Updated Rows 73</code></td>
+</tr>
+<tr>
+<td><code class="long">ERROR: column "campus" does not exist</code></td>
+<td>the statement failed, for the reason given</td>
+<td>an error that starts <code>SQL Error [42703]:</code>, then the same words</td>
+</tr>
+</tbody>
+</table></div>
+<p>psql is the command-line client of PostgreSQL. You meet it in <code>open_psql.bat</code>, and it prints exactly what the lab sheets show.</p>
 <h2 id="metabase-the-first-time">Metabase, the first time</h2>
 <p>Metabase asks you to create an account the first time. It stays on your computer. Use any name and an address such as <code>you@thara.example</code>. Choose a password you will remember.</p>
-<p>To add the warehouse, choose <strong>PostgreSQL</strong>. Type host <code>localhost</code>, port <code>15432</code>, database <code>thara</code> and user <code>postgres</code>. Leave the password empty.</p>
+<p>To add the warehouse, choose <strong>PostgreSQL</strong>. Type host <code>localhost</code>, port <code>15432</code> or the number you set, database <code>thara</code> and user <code>postgres</code>. Leave the password empty.</p>
 <h2 id="when-you-finish">When you finish</h2>
 <ol>
 <li>Close DBeaver yourself, so it can ask you to save your SQL scripts.</li>
 <li>Double-click <code>setup\stop_all.bat</code>. It stops PostgreSQL, Metabase and Jupyter.</li>
 <li>Wait for its PASS line before you move the kit folder or turn the computer off.</li>
 </ol>
+<h2 id="how-each-day-works">How each day works</h2>
+<p>Each day has a page on this site. Work through it in this order:</p>
+<ol>
+<li><strong>Before the day.</strong> Read the notes. Each notes page starts with the key words for that day.</li>
+<li><strong>Theory.</strong> Follow the theory slides in class, with the notes open beside them.</li>
+<li><strong>Lab.</strong> Follow the lab sheet step by step. Each step says what to run, what you should see, and what to do if you do not see it.</li>
+<li><strong>After the lab.</strong> Keep the files the lab sheet's Evidence section lists. Then try the practice activities on the day's page.</li>
+<li><strong>Before the next day.</strong> Answer the notes' Self-Check, and do the day's tasks.</li>
+</ol>
+<h2 id="your-evidence-repository">Your evidence repository</h2>
+<p>Evidence is the record that you did each lab: the screenshots, outputs and pages each lab sheet's Evidence section lists. Every student keeps their own. Nothing is done in pairs unless a page says so.</p>
+<p>Keep your evidence in one private GitHub repository, from Day 1 on:</p>
+<ol>
+<li>Sign in to GitHub, and create a new repository. Name it <code>dwbi-evidence</code>, and choose <strong>Private</strong>.</li>
+<li>Make one folder for each day: <code>day-1</code>, <code>day-2</code>, and so on. On GitHub, choose <strong>Add file</strong>, then <strong>Upload files</strong>. To make a folder, type its name and a slash before the file name.</li>
+<li>After each lab, upload that day's evidence into its folder.</li>
+<li>When your lecturer asks for evidence, add them as a collaborator. Choose <strong>Settings</strong>, then <strong>Collaborators</strong>, then <strong>Add people</strong>, and enter the GitHub username your lecturer gives your cohort.</li>
+</ol>
+<p>Anything you submit goes through this repository, with your lecturer added as a collaborator. Your lecturer announces which work is submitted and when.</p>
 <h2 id="restoring-is-not-cheating">Restoring is not cheating</h2>
 <p>If your warehouse is wrong, restore it and carry on. Each day's <code>reference</code> folder holds the correct output of that day. Using it costs you nothing.</p>
 <p>The restore replaces everything in schema <code>warehouse</code>, including any table you made there yourself. Schema <code>registration</code> is not touched.</p>
@@ -181,7 +258,7 @@
 <tr>
 <td>The restore seems to stop and wait</td>
 <td>DBeaver or another window holds the warehouse open</td>
-<td>Close DBeaver's open transaction, or close DBeaver, and the restore carries on</td>
+<td>Close DBeaver, and the restore carries on</td>
 </tr>
 <tr>
 <td>Metabase says Java is too old</td>

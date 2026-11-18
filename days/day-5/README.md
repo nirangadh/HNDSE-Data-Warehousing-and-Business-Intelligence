@@ -28,7 +28,7 @@ Files appear here before the teaching day.
 
 - Han, Kamber and Pei: the section on data cube computation.
 
-**Self-check (issued separately):** one question per idea: the one-pass operators, KPIs, self-service BI; which operations remove detail and which add it.
+**Self-check:** The notes' Self-Check asks one question per idea: the one-pass operators, KPIs, self-service BI. From the lab, explain which operations remove detail and which add it.
 
 **Tasks:**
 

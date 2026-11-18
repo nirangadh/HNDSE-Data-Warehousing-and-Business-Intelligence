@@ -10,11 +10,11 @@ Files appear here before the teaching day.
 
 **Demonstration:** The star in DBeaver.
 
-**Activity:** Fact or dimension?.
+**Activity:** Fact or dimension?
 
 **Components introduced:** 3, Star schema.
 
-## Lab: Star schema lab
+## Lab: Build the star in SQL
 
 **Demonstration:** One table, live.
 
@@ -26,9 +26,9 @@ Files appear here before the teaching day.
 
 **Read:**
 
-- Kimball and Caserta, The Data Warehouse ETL Toolkit: the chapters on dimensional modelling.
+- Kimball and Caserta, The Data Warehouse ETL Toolkit, Chapter 5 (Delivering Dimension Tables) and Chapter 6 (Delivering Fact Tables).
 
-**Self-check (issued separately):** one question per idea: the grain sentence, measures and context, star and snowflake; why fact_enrollment is created after the three dimensions.
+**Self-check:** The notes' Self-Check asks one question per idea: the grain sentence, measures and context, star and snowflake. From the lab, explain why fact_enrollment is created after the three dimensions.
 
 **Tasks:**
 

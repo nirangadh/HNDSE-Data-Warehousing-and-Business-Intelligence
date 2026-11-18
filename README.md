@@ -4,7 +4,7 @@ This module is taught on the BSc (Hons) Computing at Level 4 and on the Higher N
 
 ## Start here
 
-1. [Getting started](getting-started.md): set up your portable tools, and learn how each day works.
+1. [Getting started](getting-started.md): download the module files, set up your portable tools, and learn how each day works and where your evidence goes.
 2. [The scenario](scenario/organisation.md): the institute every lab builds for, and the three people who ask the questions.
 3. [The glossary](glossary.md): every word the module teaches, filed under the day that first uses it.
 
@@ -43,7 +43,7 @@ All four run from one folder, with no installation and no administrator rights. 
 
 ## Restoring is not cheating
 
-Each day's `reference` folder holds the correct output of that day. If your result is wrong, use it and carry on. It costs you no marks, and one bad result never blocks the rest of your week.
+Each day's `reference` folder holds the correct output of that day. If your result is wrong, use it and carry on. It costs you no marks, and one bad result never blocks the rest of the module.
 
 ## Assessment
 

@@ -46,9 +46,9 @@ A star schema in PostgreSQL. The grain is fixed, word for word:
 
 **One row in fact_enrollment represents one student enrolled in one course during one academic term.**
 
-The fact table `fact_enrollment` carries `grade` and the additive measure `enrollment_count`. Three dimensions carry the context: `dim_student`, `dim_course` (with the department denormalised onto it) and `dim_date` (one row per academic term). You design it on Day 2 and fill it on Days 3 and 4. You query it on Days 4 and 5, and build a dashboard on it on Day 6.
+The fact table `fact_enrollment` carries the additive measure `enrollment_count`, which is 1 on every row, and each enrollment's `grade`, a letter that is counted, never added. A rule in the table allows one row per student, course and term. Three dimensions carry the context: `dim_student`, `dim_course` (with the department denormalised onto it) and `dim_date` (one row per academic term). You design it on Day 2 and fill it on Days 3 and 4. You query it on Days 4 and 5, and build a dashboard on it on Day 6.
 
-Day 7 leaves the institute. The capstone runs the same method on a public e-commerce dataset (Olist), so students see that the method transfers and the domain does not.
+Day 7 leaves the institute. The capstone runs the same method on a public e-commerce dataset (Olist), so you see that the method transfers and the domain does not.
 
 ## 7. The warehouse you will build
 
@@ -81,7 +81,8 @@ Every name a lab uses is in this table.
 | Departments | Computing, Business |
 | Campuses | Colombo, Kandy, Online |
 | Programmes | BSc (Hons) Computing, HND Software Engineering |
-| Terms | Semester 1 and Semester 2 of 2023/2024 and 2024/2025 |
+| Terms | Semester 1 and Semester 2 of 2023/2024 and 2024/2025. Semester 2 of 2024/2025 is the term running now, so most of its grades are not in yet |
+| Grades | A for 70 to 100 marks, B for 60 to 69, C for 50 to 59, D for 40 to 49, and F for below 40, a fail. A grade is a letter for a band of marks: count it or filter by it, never add or average it |
 | Lecturers | Dr. S. Fonseka, Mr. R. Abeywardena, Ms. T. Herath, Dr. N. Wijesuriya |
 | Student ids | 3001 to 3024; 3001 is the student whose duplicate in the registry causes the Day 3 fan-out |
 | Email domain | `thara.example` |

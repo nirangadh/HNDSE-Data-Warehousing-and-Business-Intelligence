@@ -33,11 +33,11 @@
 
 **Read:**
 
-- Han, Kamber and Pei, Data Mining: Concepts and Techniques, the chapter on data warehousing: what a data warehouse is.
+- Han, Kamber and Pei, Data Mining: Concepts and Techniques, 3rd edition, Chapter 4, section 4.1: what a data warehouse is.
 
-**Self-check (issued separately):** one question per idea: OLTP and OLAP, the four properties, the chain; why a duplicate is refused but campus is missing.
+**Self-check:** The notes' Self-Check asks one question per idea: OLTP and OLAP, the four properties, the chain. From the lab, explain why the system refuses a duplicate but cannot give campus.
 
 **Tasks:**
 
 - Bring the three questions you write in the lab to Day 2.
-- Keep your three questions; Day 2 checks the star schema against them.
+- Put your page in folder day-1 of your evidence repository.

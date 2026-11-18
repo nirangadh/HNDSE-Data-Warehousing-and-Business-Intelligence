@@ -28,7 +28,7 @@ Files appear here before the teaching day.
 
 - Han, Kamber and Pei: the sections on OLAP operations and on MOLAP, ROLAP and HOLAP.
 
-**Self-check (issued separately):** one question per idea: reduction, surrogate keys, the cube; why backslash-copy leaves a SERIAL sequence where it was.
+**Self-check:** The notes' Self-Check asks one question per idea: reduction, surrogate keys, the cube. From the lab, explain why backslash-copy leaves a SERIAL sequence where it was.
 
 **Tasks:**
 
