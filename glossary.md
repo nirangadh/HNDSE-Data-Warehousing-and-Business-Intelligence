@@ -25,7 +25,7 @@ Organised around the subject people ask about, not around the screens of the sys
 *Thara example:* The warehouse is organised around enrollment, the subject the Dean asks about.
 
 ### integrated
-Every source uses one spelling for each value and one key for each thing it describes.
+Data from every source is stored with one spelling for each value and one key for each thing it describes.
 *Thara example:* A student keeps one key in the warehouse, whether the row came from the registration system or the admissions registry.
 
 ### time-variant
@@ -46,8 +46,8 @@ Data with context, so it can be read and compared.
 
 ### knowledge
 A pattern you can act on, found by reading information over time and in context.
-*Thara example:* Whether demand for Database Systems grows from one year to the next.
+*Thara example:* Database Systems grew from 3 enrollments in Semester 1 of 2023/2024 to 9 a year later, so demand is growing.
 
 ### decision support system
-A system that helps people move from stored data to a decision, with questions they ask themselves.
+A system that helps people move from stored data to a decision, by asking their own questions of it.
 *Thara example:* The warehouse and its dashboards help the Dean decide whether to open another intake.

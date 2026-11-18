@@ -43,7 +43,7 @@
 </tr>
 <tr>
 <td>You build</td>
-<td>component 1, Registration system (shown), and component 2, Requirements</td>
+<td>component 2, Requirements. Component 1, the registration system, is shown, not built</td>
 </tr>
 <tr>
 <td>Input</td>
@@ -64,15 +64,17 @@
 </ol>
 <h2 id="objective">Objective</h2>
 <p>At the end of this lab you have seen the same question answered by two designs, and you have counted the joins each one needs. You also have three questions the warehouse must answer, and Day 2 tests its star schema against them.</p>
+<p>In this lab, the registration system and the warehouse share one database, <code>thara</code>, in two schemas. That is only so one portable server runs both. At the institute, the warehouse runs on its own server.</p>
 <div class="qc"><p class="qc-label">Quick check</p><p class="qc-q">The Dean asks whether student 3001 has a grade for Database Systems this term. What kind of question is that?</p><ol class="qc-opts"><li>A warehouse question, because the Dean asks it</li><li data-right="">A look-up of one record, so an OLTP question<span class="qc-key"> (answer)</span></li><li>A warehouse question, because it names a course</li></ol><p class="qc-why"><strong>Why:</strong> The question finds one enrollment. A look-up of one record is an OLTP question, even when a manager asks it. A warehouse question compares terms or groups many rows.</p></div>
 <h2 id="steps">Steps</h2>
 <p>Every step says what to run, what you should see, and what to do if you do not see it. If you do not see the expected result, stop and fix that step before you go on. Run every step in the same SQL editor.</p>
+<p>Results are written the way psql prints them. In DBeaver, a row such as <code>Database Systems | 9</code> is one row of the result grid, and an error starts with SQL Error. <a href="../../getting-started.html#running-sql-in-dbeaver">Getting started</a> shows how each result looks in DBeaver.</p>
 <p class="segment">Exercise 1: Explore the registration system</p>
 <ol class="steps">
 <li data-n="1">
 <p><strong>Point the editor at the registration system.</strong> Open an SQL editor on the database <code>thara</code> in DBeaver, and run:
 <code class="cmd">SET search_path TO registration;</code>
-<span class="expect"><b class="expect-label">You should see</b> DBeaver reports <code>SET</code>.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">syntax error at or near "path"</code> means a word is missing. The setting is one word, search_path, with an underscore.</span></p>
+<span class="expect"><b class="expect-label">You should see</b> psql prints <code>SET</code>. In DBeaver, no error appears.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">syntax error at or near "path"</code> means a word is missing. The setting is one word, search_path, with an underscore.</span></p>
 </li>
 <li data-n="2">
 <p><strong>Count the rows in each of the four tables.</strong></p>
@@ -126,7 +128,7 @@ FROM enrollments e
 JOIN students s ON s.student_id = e.student_id
 JOIN courses c ON c.course_id = e.course_id;
 </code></pre>
-<span class="expect"><b class="expect-label">You should see</b> DBeaver reports <code>SELECT 73</code>: one row for each enrollment.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">relation "enrollment_flat" already exists</code> means you ran this step before. Run Step 10 to drop the table, then run this step again.</span></li>
+<span class="expect"><b class="expect-label">You should see</b> psql prints <code>SELECT 73</code>, and DBeaver shows Updated Rows 73: one row for each enrollment.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">relation "enrollment_flat" already exists</code> means you ran this step before. Run Step 10 to drop the table, then run this step again.</span></li>
 <li data-n="9"><strong>Ask the Dean's question of the flat table.</strong> It needs no join.<pre tabindex="0"><code class="language-sql">SELECT course_name, COUNT(*) AS enrolled
 FROM warehouse.enrollment_flat
 WHERE semester = 'Semester 1' AND academic_year = '2024/2025'
@@ -136,11 +138,11 @@ ORDER BY enrolled DESC, course_name;
 <span class="expect"><b class="expect-label">You should see</b> the same six rows as Step 5, from <code>Database Systems | 9</code>, with no join.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">relation "enrollment_flat" does not exist</code> means the schema name is missing. Write warehouse.enrollment_flat, because the editor points at registration.</span></li>
 <li data-n="10"><strong>Drop the flat table, so schema <code>warehouse</code> is empty again for Day 2.</strong>
 <code class="cmd">DROP TABLE warehouse.enrollment_flat;</code>
-<span class="expect"><b class="expect-label">You should see</b> DBeaver reports <code>DROP TABLE</code>.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">table "enrollment_flat" does not exist</code> means it is already dropped. Go on: the Prove it check confirms the schema is empty.</span></li>
+<span class="expect"><b class="expect-label">You should see</b> psql prints <code>DROP TABLE</code>. In DBeaver, no error appears.</span><span class="fails"><b class="expect-label">If it fails</b> <code class="long">table "enrollment_flat" does not exist</code> means it is already dropped. Go on: the Prove it check confirms the schema is empty.</span></li>
 </ol>
 <p class="segment">Exercise 3: Turn the voices into requirements</p>
-<p>Work in pairs. Read what the Dean, the Registrar and the Head of Computing ask, in <a href="../../scenario/organisation.html#3-the-three-voices">the scenario</a>. Write three questions the warehouse must answer. For each one, name the data it needs and the shape of the answer. Say why the registration system cannot answer it well.</p>
-<p>You are finished when you have one page: the scenario in two sentences and three questions. Each question compares terms or groups many rows, and none is a look-up of one record.</p>
+<p>Work on your own. Read what the Dean, the Registrar and the Head of Computing ask, in <a href="../../scenario/organisation.html#3-the-three-voices">the scenario</a>. Write three questions the warehouse must answer. For each one, name the data it needs and the shape of the answer. The shape is the columns of the answer table, such as course, term and a count. Say why the registration system cannot answer it well.</p>
+<p>You are finished when you have one page of your own: the scenario in two sentences, then three questions. Each question names its data, the shape of its answer and why the registration system cannot answer it well. Each compares terms or groups many rows, and none is a look-up of one record.</p>
 <p>If you are stuck, start from the Dean's question in Step 5. Ask it for every term, then by campus, and say which system holds each piece.</p>
 <section class="mark prove"><h2 id="prove-it"><span class="mark-chip">PROVE IT</span> Prove it</h2>
 <p>Run these three checks in the same editor, and paste the output into your evidence.</p>
@@ -155,7 +157,7 @@ FROM enrollments
 WHERE grade IS NULL
   AND NOT (semester = 'Semester 2' AND academic_year = '2024/2025');
 </code></pre>
-<p><span class="expect"><b class="expect-label">You should see</b> <code>missing_grades</code> is <code>4</code>: grades nobody entered for terms that have ended.</span></p>
+<p><span class="expect"><b class="expect-label">You should see</b> <code>missing_grades</code> is <code>4</code>: grades nobody entered for terms that have ended. Semester 2 of 2024/2025 is still running, so the check leaves it out.</span></p>
 <pre tabindex="0"><code class="language-sql">SELECT COUNT(*) AS warehouse_tables
 FROM information_schema.tables
 WHERE table_schema = 'warehouse';
@@ -167,13 +169,16 @@ WHERE table_schema = 'warehouse';
 </code></pre>
 <p>You see <code class="long">duplicate key value violates unique constraint "enrollments_one_per_term"</code>. The error names the constraint that allows one enrollment per student, course and term. There is nothing to undo. The registration system refused the row, so duplicates can only come from outside it.</p>
 </section><section class="mark restore"><h2 id="if-your-result-is-wrong"><span class="mark-chip">IF WRONG</span> If your result is wrong</h2>
-<p>The correct output of today is in <code>reference/</code>: <a href="reference/d1_requirements_reference.html">d1_requirements_reference.md</a> is a worked page of three questions. Compare it with yours and carry on. You may use it whenever you need to, and it costs you no marks. It means one bad result never blocks the rest of your week.</p>
+<p>The correct output of today is in <code>reference/</code>: <a href="reference/d1_requirements_reference.html">d1_requirements_reference.md</a> is a worked page of three questions. Compare it with yours and carry on. You may use it whenever you need to, and it costs you no marks. It means one bad result never blocks the rest of the module.</p>
 <p>If the counts in Prove it differ, load the registration system again. Double-click <code>setup\open_psql.bat</code> and run <code class="long">psql -d thara -f ..\days\day-1\sql\d1_registration.sql</code>. It rebuilds schema <code>registration</code> only.</p>
 </section><h2 id="todays-deliverable">Today's deliverable</h2>
-<p>one-page scenario and three questions the warehouse must answer. Keep it as one page, on paper or as a document, and bring it to Day 2.</p>
+<p>The plan names it: one-page scenario and three questions the warehouse must answer.</p>
+<p>That is one page, written by you alone. It holds the scenario in two sentences, then your three questions. Each question has its data, the shape of its answer and its reason. Save it as <code>day-1/requirements.pdf</code>, or as a photo of your paper page, and bring it to Day 2.</p>
 <section class="mark evidence"><h2 id="evidence"><span class="mark-chip">EVIDENCE</span> Evidence</h2>
+<p>Keep these in folder <code>day-1</code> of your evidence repository. <a href="../../getting-started.html#your-evidence-repository">Getting started</a> shows how to make it.</p>
 <ul>
 <li>Screenshots of the results of Steps 2, 5 and 9.</li>
+<li>The output of the three Prove it checks.</li>
 <li>Your one-page scenario with the three questions.</li>
 </ul>
 </section><h2 id="thara-connection">Thara connection</h2>

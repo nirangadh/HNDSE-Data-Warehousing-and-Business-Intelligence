@@ -28,7 +28,7 @@ Files appear here before the teaching day.
 
 - The licence and attribution notice for the capstone data, in the repository.
 
-**Self-check (issued separately):** one question per idea: transfer, defensible design, profiling real data; which step of the week changed most for the shop, and why.
+**Self-check:** The notes' Self-Check asks one question per idea: transfer, defensible design, profiling real data. From the lab, explain which step of Days 1 to 6 changed most for the shop, and why.
 
 **Tasks:**
 

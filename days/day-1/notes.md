@@ -22,14 +22,14 @@ Today starts the thread of ideas for the whole module. It builds on what you alr
 - **[OLTP](../../glossary.md#oltp)**: work that records events one row at a time, such as the desk adding one enrollment.
 - **[OLAP](../../glossary.md#olap)**: work that reads many rows at once and groups them, such as enrollments per course for one term.
 - **[Workload](../../glossary.md#workload)**: the kind of work a database does most of the time, such as the desk's small writes all day.
-- **[Data warehouse](../../glossary.md#data-warehouse)**: a separate system that holds history for analysis, like the one you build this week.
+- **[Data warehouse](../../glossary.md#data-warehouse)**: a separate system that holds history for analysis, like the one you build in this module.
 - **[Subject-oriented](../../glossary.md#subject-oriented)**: organised around the subject people ask about, which for the Dean is enrollment.
-- **[Integrated](../../glossary.md#integrated)**: every source uses one spelling for each value and one key for each student.
+- **[Integrated](../../glossary.md#integrated)**: data from every source is stored with one spelling for each value and one key for each student.
 - **[Time-variant](../../glossary.md#time-variant)**: every row carries its time, as each enrollment carries its semester and academic year.
 - **[Non-volatile](../../glossary.md#non-volatile)**: rows are loaded and read, not edited, so a report gives the same answer next month.
 - **[Data](../../glossary.md#data)**: a recorded fact about one event, such as one enrollment row.
 - **[Information](../../glossary.md#information)**: data with context, such as a count of enrollments for each course in one term.
-- **[Knowledge](../../glossary.md#knowledge)**: a pattern you can act on, such as whether demand for a course grows each year.
+- **[Knowledge](../../glossary.md#knowledge)**: a pattern you can act on, such as a course's enrollments growing from one year to the next.
 - **[Decision support system](../../glossary.md#decision-support-system)**: a system that helps people move from data to a decision, such as a warehouse with its dashboards.
 
 ## Idea 1 of 3 - One database cannot do both jobs
@@ -44,7 +44,9 @@ A database does two kinds of work. OLTP, online transaction processing, records 
 
 The registration system is built for OLTP work. It stores each fact once, in four tables joined by keys, so its writes are fast and safe.
 
-Now compare the two questions. The desk's question reads one enrollment, which the system finds by its key. The Dean's question reads every enrollment of a term and groups them. As terms pile up, every analytical read scans more rows, and the desk waits behind it.
+Now compare the two questions. The desk's question reads one enrollment, which the system finds by its key. The Dean's question joins and groups every enrollment of a term.
+
+So two things slow the desk. First, the design suits small writes, not large reads that join and group. Second, the Dean's report runs on the same tables the desk is writing, so the two jobs wait for each other.
 
 ![Two questions on one database. The desk's question reads one enrollment, 5008, by its key. The Dean's question reads the 31 enrollments of one term and groups them into 6 course totals.](img/two-jobs.svg "One database, two kinds of work.")
 
@@ -83,11 +85,11 @@ The three exports gave three different totals for the same question. Each office
 Here is what each property means for the institute.
 
 - Subject-oriented means the warehouse is organised around enrollment, the subject the Dean asks about, not around the desk's screens.
-- Integrated means every source uses one spelling for each value and one key for each student.
+- Integrated means data from every source is stored with one spelling for each value and one key for each student.
 - Time-variant means every enrollment carries its term, so one term can be compared with the same term a year earlier.
 - Non-volatile means rows are loaded and read, not edited, so a report gives the same answer next month.
 
-Now test the registration system against these properties. It fails the test for campus, because the admissions office keeps campus in its own registry.
+Now test the registration system against these properties. It cannot answer by campus, because the admissions office keeps campus in its own registry.
 
 > **Analogy.**
 >
@@ -118,7 +120,7 @@ So the Dean gets one number to trust, because every office's question reads the 
 
 Now the Dean asks whether the institute should open another intake of Database Systems next year.
 
-The registration system holds every enrollment, so the data exists. Yet nobody can answer the question this week. So what is missing between the rows and the decision?
+The registration system holds every enrollment, so the data exists. Yet nobody can answer the question quickly. So what is missing between the rows and the decision?
 
 > **Key idea.** Data supports a decision only after it becomes information and then knowledge. A row records one event, and a decision needs a pattern across many events, read in context. A warehouse exists to shorten the path from stored rows to a decision someone can defend.
 
@@ -126,11 +128,13 @@ The chain has three links before the decision.
 
 - Data is one row, for example student 3003 enrolled in Web Development in Semester 1 of 2024/2025.
 - Information is data with context, for example Database Systems had 9 enrollments in Semester 1 of 2024/2025, more than any other course.
-- Knowledge is a pattern you can act on, for example whether that demand grows from one year to the next.
+- Knowledge is a pattern you can act on. For example, Database Systems grew from 3 enrollments in Semester 1 of 2023/2024 to 9 a year later.
 
-A decision support system helps people move along that chain with their own questions. Decision support grew from printed operational reports, to systems managers query themselves, to warehouses and dashboards.
+A decision support system helps people move along that chain with their own questions.
 
-![The decision chain. Data is one enrollment row. Information is Database Systems with 9 enrollments in one term. Knowledge is whether that demand grows each year. The decision is whether to open another intake.](img/decision-chain.svg "From one row to a decision.")
+Decision support grew in three stages. First came printed reports, the same pages every month. Then came systems that managers query themselves. Today, warehouses with dashboards answer new questions without waiting for a programmer.
+
+![The decision chain. Data is one enrollment row. Information is Database Systems with 9 enrollments in one term. Knowledge is the pattern: Database Systems grew from 3 enrollments to 9 a year later. The decision is whether to open another intake.](img/decision-chain.svg "From one row to a decision.")
 
 > **Analogy.**
 >
@@ -138,11 +142,11 @@ A decision support system helps people move along that chain with their own ques
 >
 > **The mapping.** The laboratory report lists raw readings, which are data. The normal ranges printed beside them make the readings information. The doctor's experience turns the pattern into knowledge. The treatment is the decision.
 >
-> **Where it breaks.** A doctor decides for one patient at a time. The Dean decides for a whole institute, so the pattern must come from many rows, not from one person.
+> **Where it breaks.** A doctor decides for one patient at a time. The Dean decides for a whole institute, so the pattern must come from many rows, not from one reading.
 >
 > **Back to the warehouse.** The warehouse is the laboratory that prepares the report. It turns enrollment rows into counts by course and term that the Dean can act on.
 
-Every lab this week moves one step along the chain, from raw rows on Day 3 to a dashboard for the Dean on Day 6.
+From Day 3 to Day 6, each lab moves one step along the chain, from raw rows to a dashboard for the Dean.
 
 > **Thara.** The Dean's intake question meets a system that stores every row and answers none of it.
 
@@ -164,7 +168,7 @@ Every lab this week moves one step along the chain, from raw rows on Day 3 to a 
 
 ## Self-Check
 
-1. Why did the registration desk slow down when the Dean's report ran? *Answer:* The report read every enrollment of a term on the same tables the desk was writing, so OLAP work and OLTP work collided.
+1. Why did the registration desk slow down when the Dean's report ran? *Answer:* Two reasons. The report joined and grouped every enrollment of a term, which the design does not suit. And it ran on the same tables the desk was writing.
 2. Name the four properties of a warehouse, and say which one the campus question breaks. *Answer:* The four are subject-oriented, integrated, time-variant and non-volatile, and the campus question breaks integrated, because campus lives in the admissions registry.
 3. A count of 9 enrollments for one course in one term is information. What turns it into knowledge? *Answer:* The same count for other years, read as a pattern, such as growth from one year to the next.
 
@@ -176,4 +180,4 @@ This is the first day, so there are no words from earlier days yet. You need wha
 
 Day 2 builds a star schema on today's ideas. Bring the three questions you write in the lab, because Day 2 tests the star schema against them.
 
-For extra reading, see Han, Kamber and Pei, *Data Mining: Concepts and Techniques*, the chapter on data warehousing. Read the part on what a data warehouse is.
+For extra reading, see Han, Kamber and Pei, *Data Mining: Concepts and Techniques*, 3rd edition, Chapter 4, section 4.1, on what a data warehouse is.

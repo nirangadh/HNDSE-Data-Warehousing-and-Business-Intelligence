@@ -5,7 +5,7 @@ You explore the registration system, ask the Dean's question of two designs, and
 | | |
 |---|---|
 | Learning outcomes | LO1 |
-| You build | component 1, Registration system (shown), and component 2, Requirements |
+| You build | component 2, Requirements. Component 1, the registration system, is shown, not built |
 | Input | `d1_registration.sql`, loaded into the database `thara` by the starter kit |
 | Today's deliverable | one-page scenario and three questions the warehouse must answer |
 
@@ -20,6 +20,8 @@ You explore the registration system, ask the Dean's question of two designs, and
 
 At the end of this lab you have seen the same question answered by two designs, and you have counted the joins each one needs. You also have three questions the warehouse must answer, and Day 2 tests its star schema against them.
 
+In this lab, the registration system and the warehouse share one database, `thara`, in two schemas. That is only so one portable server runs both. At the institute, the warehouse runs on its own server.
+
 > **Quick check.** The Dean asks whether student 3001 has a grade for Database Systems this term. What kind of question is that?
 >
 > - [ ] A warehouse question, because the Dean asks it
@@ -32,11 +34,13 @@ At the end of this lab you have seen the same question answered by two designs, 
 
 Every step says what to run, what you should see, and what to do if you do not see it. If you do not see the expected result, stop and fix that step before you go on. Run every step in the same SQL editor.
 
+Results are written the way psql prints them. In DBeaver, a row such as `Database Systems | 9` is one row of the result grid, and an error starts with SQL Error. [Getting started](../../getting-started.md#running-sql-in-dbeaver) shows how each result looks in DBeaver.
+
 *Exercise 1: Explore the registration system*
 
 1. **Point the editor at the registration system.** Open an SQL editor on the database `thara` in DBeaver, and run:
    `SET search_path TO registration;`
-   *Expected:* DBeaver reports `SET`.
+   *Expected:* psql prints `SET`. In DBeaver, no error appears.
    *If it fails:* `syntax error at or near "path"` means a word is missing. The setting is one word, search_path, with an underscore.
 2. **Count the rows in each of the four tables.**
    ```sql
@@ -99,7 +103,7 @@ Every step says what to run, what you should see, and what to do if you do not s
    JOIN students s ON s.student_id = e.student_id
    JOIN courses c ON c.course_id = e.course_id;
    ```
-   *Expected:* DBeaver reports `SELECT 73`: one row for each enrollment.
+   *Expected:* psql prints `SELECT 73`, and DBeaver shows Updated Rows 73: one row for each enrollment.
    *If it fails:* `relation "enrollment_flat" already exists` means you ran this step before. Run Step 10 to drop the table, then run this step again.
 9. **Ask the Dean's question of the flat table.** It needs no join.
    ```sql
@@ -113,14 +117,14 @@ Every step says what to run, what you should see, and what to do if you do not s
    *If it fails:* `relation "enrollment_flat" does not exist` means the schema name is missing. Write warehouse.enrollment_flat, because the editor points at registration.
 10. **Drop the flat table, so schema `warehouse` is empty again for Day 2.**
     `DROP TABLE warehouse.enrollment_flat;`
-    *Expected:* DBeaver reports `DROP TABLE`.
+    *Expected:* psql prints `DROP TABLE`. In DBeaver, no error appears.
     *If it fails:* `table "enrollment_flat" does not exist` means it is already dropped. Go on: the Prove it check confirms the schema is empty.
 
 *Exercise 3: Turn the voices into requirements*
 
-Work in pairs. Read what the Dean, the Registrar and the Head of Computing ask, in [the scenario](../../scenario/organisation.md#3-the-three-voices). Write three questions the warehouse must answer. For each one, name the data it needs and the shape of the answer. Say why the registration system cannot answer it well.
+Work on your own. Read what the Dean, the Registrar and the Head of Computing ask, in [the scenario](../../scenario/organisation.md#3-the-three-voices). Write three questions the warehouse must answer. For each one, name the data it needs and the shape of the answer. The shape is the columns of the answer table, such as course, term and a count. Say why the registration system cannot answer it well.
 
-You are finished when you have one page: the scenario in two sentences and three questions. Each question compares terms or groups many rows, and none is a look-up of one record.
+You are finished when you have one page of your own: the scenario in two sentences, then three questions. Each question names its data, the shape of its answer and why the registration system cannot answer it well. Each compares terms or groups many rows, and none is a look-up of one record.
 
 If you are stuck, start from the Dean's question in Step 5. Ask it for every term, then by campus, and say which system holds each piece.
 
@@ -144,7 +148,7 @@ WHERE grade IS NULL
   AND NOT (semester = 'Semester 2' AND academic_year = '2024/2025');
 ```
 
-*Expected:* `missing_grades` is `4`: grades nobody entered for terms that have ended.
+*Expected:* `missing_grades` is `4`: grades nobody entered for terms that have ended. Semester 2 of 2024/2025 is still running, so the check leaves it out.
 
 ```sql
 SELECT COUNT(*) AS warehouse_tables
@@ -166,17 +170,22 @@ You see `duplicate key value violates unique constraint "enrollments_one_per_ter
 
 ## If your result is wrong
 
-The correct output of today is in `reference/`: [d1_requirements_reference.md](reference/d1_requirements_reference.md) is a worked page of three questions. Compare it with yours and carry on. You may use it whenever you need to, and it costs you no marks. It means one bad result never blocks the rest of your week.
+The correct output of today is in `reference/`: [d1_requirements_reference.md](reference/d1_requirements_reference.md) is a worked page of three questions. Compare it with yours and carry on. You may use it whenever you need to, and it costs you no marks. It means one bad result never blocks the rest of the module.
 
 If the counts in Prove it differ, load the registration system again. Double-click `setup\open_psql.bat` and run `psql -d thara -f ..\days\day-1\sql\d1_registration.sql`. It rebuilds schema `registration` only.
 
 ## Today's deliverable
 
-one-page scenario and three questions the warehouse must answer. Keep it as one page, on paper or as a document, and bring it to Day 2.
+The plan names it: one-page scenario and three questions the warehouse must answer.
+
+That is one page, written by you alone. It holds the scenario in two sentences, then your three questions. Each question has its data, the shape of its answer and its reason. Save it as `day-1/requirements.pdf`, or as a photo of your paper page, and bring it to Day 2.
 
 ## Evidence
 
+Keep these in folder `day-1` of your evidence repository. [Getting started](../../getting-started.md#your-evidence-repository) shows how to make it.
+
 - Screenshots of the results of Steps 2, 5 and 9.
+- The output of the three Prove it checks.
 - Your one-page scenario with the three questions.
 
 ## Thara connection
